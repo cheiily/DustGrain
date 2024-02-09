@@ -23,6 +23,6 @@ class Data : CliktCommand(help = "Get a move's data", name = "data") {
                 "${pair.first} = ${pair.second}"
             }
         )
-        else echo(Json.encodeToString(data))
+        else echo(Json.encodeToString(mapOf("data" to data)))
     }
 }
