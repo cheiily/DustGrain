@@ -1,9 +1,9 @@
 # DustGrain
-Dustloop-scraping utility with a CLI interface.\
+Dustloop-scraping utility with a CLI interface.
 Written in kotlin with the help of clikt and jsoup.
 
 ## Usage
-- check `dustgrain -h` or `dustgrain <command> -h` for immediate help.
+- Check `dustgrain -h` or `dustgrain <command> -h` for immediate help.
 
 DustGrain currently offers two commands:
 ### List
@@ -26,11 +26,13 @@ This functionality can also be accessed via `Model.listMoves`.
 
 #### Example
 Usage:
-> .\dustgrain list GBVSR Djeeta
-
+```shell
+.\dustgrain list GBVSR Djeeta
+```
 Return:
->  {"moves":["c.L","c.M","c.H","c.XX","c.XXX","c.XX6M","c.XX6H","f.L","f.M","f.H","2L","2M","2H","2U","66L","66M","66H","j.L","j.M","j.H","j.U","5U lv0","5U lv1","5U lv2","5U Lv3","5U Lv4","5[U] ~ X","236L","236M","236H","236[L]","236[M]","236[H]","214L","214L~214L","214M","214M~214M","214H","214H~214H","214H~214H~214H","623L","623M","623H","236U","623U","214U","236236H","236236U","Ground Throw","Air Throw","Raging Strike","Raging Chain","Brave Counter"]}
-
+```json
+{"moves":["c.L","c.M","c.H","c.XX","c.XXX","c.XX6M","c.XX6H","f.L","f.M","f.H","2L","2M","2H","2U","66L","66M","66H","j.L","j.M","j.H","j.U","5U lv0","5U lv1","5U lv2","5U Lv3","5U Lv4","5[U] ~ X","236L","236M","236H","236[L]","236[M]","236[H]","214L","214L~214L","214M","214M~214M","214H","214H~214H","214H~214H~214H","623L","623M","623H","236U","623U","214U","236236H","236236U","Ground Throw","Air Throw","Raging Strike","Raging Chain","Brave Counter"]}
+```
 </details>
 
 ### Data
@@ -56,14 +58,17 @@ This functionality can also be accessed via `Model.getData`.
 
 #### Example
 Usage:
-> .\dustgrain data BBTag Noel_Vermillion "Drive Finisher"
-
-> .\dustgrain data -p GGACR May 4123641236H
-
-Return:
-> {"data":{"input":"Drive Finisher","name":"Type II: Bloom Trigger","damage":"1000, 1700","guard":"All","startup":"11","active":"2(7)4","recovery":"33","onBlock":"-16","attribute":"B, BP","invuln":"","p1":"100","p2":"90","cancel":"P","level":"5","blockstun":"20","groundHit":"Crumple, Launch","airHit":"21, 50 + WBounce 50","groundCH":"Crumple, Launch","airCH":"37, 66 + WBounce 50","blockstop":"16, 0","hitstop":"+0","CHstop":"+8"}}
-
+```shell 
+.\dustgrain data BBTag Noel_Vermillion "Drive Finisher"
 ```
+```shell
+.\dustgrain data -p GGACR May 4123641236H
+```
+Return:
+```json
+{"data":{"input":"Drive Finisher","name":"Type II: Bloom Trigger","damage":"1000, 1700","guard":"All","startup":"11","active":"2(7)4","recovery":"33","onBlock":"-16","attribute":"B, BP","invuln":"","p1":"100","p2":"90","cancel":"P","level":"5","blockstun":"20","groundHit":"Crumple, Launch","airHit":"21, 50 + WBounce 50","groundCH":"Crumple, Launch","airCH":"37, 66 + WBounce 50","blockstop":"16, 0","hitstop":"+0","CHstop":"+8"}}
+```
+```text
 input = 4123641236H
 name = May and the Jolly Crew
 guard = 70 pixels
