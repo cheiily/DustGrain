@@ -9,11 +9,17 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import model.Model
 
+/**
+ * Command responsible for handling list requests.
+ */
 class List : CliktCommand(help = "List moves for the specified character") {
     private val wiki by argument(help = "Dustloop sub-wiki")
     private val char by argument(help = "Character's name as seen in the url")
     private val pretty by option("-p", "--pretty").flag().help("Human-readable text")
 
+    /**
+     * Switches on the pretty flag for output formatting.
+     */
     override fun run() {
         val moves = Model.listMoves(wiki, char)
 
