@@ -27,3 +27,4 @@ class List : CliktCommand(help = "List moves for the specified character") {
         else echo(Json.encodeToString(mapOf("moves" to moves)))
     }
 }
+//TODO package the entire thing into DustGrain, try redoing the list pull to categorize moves

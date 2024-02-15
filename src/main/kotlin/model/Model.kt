@@ -4,6 +4,12 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
 object Model {
+    enum class TableType(val prop: String) {
+        CARGO_TABLE("cargoTable"),
+        DATA_TABLE("cargoDynamicTable"),
+        WIKI_TABLE("wikitable");
+    }
+
     /**
      * Common function for extracting table elements from dustloop wiki.
      *
@@ -22,6 +28,41 @@ object Model {
             .get()
 
         return doc.getElementsByClass("details-control").filter { elem -> elem.tagName() == "td" }
+    }
+
+    fun scrapeTables(wiki: String, char: String, type: TableType = TableType.DATA_TABLE): Map<String, Element> {
+        val url = "https://www.dustloop.com/w/$wiki/$char/Frame_Data"
+        val doc = Jsoup.connect(url)
+            .timeout(5000)
+            .get()
+
+        //unify tables
+        doc.getElementsByClass("details-control").forEach( Element::remove )
+
+        doc.getElementsByClass("section-heading")
+            .let {
+                //cull navigation & glossary
+                return@let it.subList(1, it.size - 1)
+            }.also {
+                val selected = it.filter { heading -> heading.nextElementSibling()?.select("table")?.any{ table -> table.classNames().contains(type.prop) } ?: false }
+
+                val keys: List<String>
+                val vals: List<Element>
+
+                when (type) {
+                    TableType.DATA_TABLE, TableType.CARGO_TABLE -> {
+                        keys = selected.mapNotNull { element -> element.text() }
+                        vals = selected.mapNotNull { element -> element.nextElementSibling()?.select('.'+type.prop)?.first() }
+                    }
+                    // wiki tables usually come in pairs: gatling and air gatling, cancel and air cancel, p combo, revolver action, etc
+                    TableType.WIKI_TABLE -> {
+                        vals = selected.flatMap { element -> element.nextElementSibling()?.select('.'+type.prop).orEmpty() }.filterNotNull()
+                        keys = vals.mapNotNull { table -> table.select("caption").first()?.text() }
+                    }
+                }
+
+                return keys.zip(vals).toMap()
+            }
     }
 
     /**
@@ -68,6 +109,7 @@ object Model {
      * @see scrapeControls
      */
     fun listMoves(wiki: String, char: String): List<String> {
+        //todo use getCol "input" or first col if not found
         val cntrl = scrapeControls(wiki, char)
         return cntrl.mapNotNull { elem -> elem.nextElementSibling()?.text() }
     }
