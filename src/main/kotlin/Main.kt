@@ -58,7 +58,17 @@ fun main(args: Array<String>) {
     println()
 
     val wikimap = Model.scrapeTables("BBCF", "Noel_Vermillion", Model.TableType.WIKI_TABLE)
-    println(wikimap["Air Revolver Action Table"]?.let { Util.getRow(it, 0, true) })
-//    println(wikimap["Air Revolver Action Table"]?.let { Util.getRow(it, "j.A", true) })
+    println(wikimap["Ground Revolver Action Table"]?.let { Util.getRow(it, 2, true) })
+    println(wikimap["Air Revolver Action Table"]?.let { Util.getRow(it, "j.A", true) })
     println(wikimap["Air Revolver Action Table"]?.let { Util.getCol(it, 0) })
+    println(wikimap["Air Revolver Action Table"]?.let { Util.getCol(it, "Cancels", true) })
+    println(wikimap["Ground Revolver Action Table"]?.let { Util.getHeadersWikitable(it) })
+    println()
+
+    val dbfzmap = Model.scrapeTables("DBFZ", "Android_18", Model.TableType.WIKI_TABLE)
+    println(dbfzmap["Air Z Combo"]?.let { Util.getHeadersWikitable(it) })
+    println()
+
+    val p4map = Model.scrapeTables("P4U2R", "Marie", Model.TableType.WIKI_TABLE)
+    println(p4map["Ground P Combo Table"]?.let { Util.getHeadersWikitable(it) })
 }
