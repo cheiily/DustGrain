@@ -108,4 +108,15 @@ object Util {
             }.orEmpty()
     }
 
+    fun getCell(table: Element, row: Int, col: Int, wikitable: Boolean) : String {
+        return getRow(table, row, wikitable)[col]
+    }
+
+    fun getStat(table: Element, move: String, stat: String) : String {
+        val col = getCol(table, stat)
+        val idx = getCol(table, "input").indexOf(move)
+
+        return col[idx]
+    }
+
 }

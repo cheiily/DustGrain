@@ -49,6 +49,8 @@ fun main(args: Array<String>) {
     println(movemap["Normal Moves"]?.let { Util.getRow(it, "5A") })
     println(movemap["Normal Moves"]?.let { Util.getCol(it, "input") })
     println(movemap["Normal Moves"]?.let { Util.getCol(it, 1) })
+    println(movemap["Normal Moves"]?.let { Util.getCell(it, 0, 0, false) })
+    println(movemap["Normal Moves"]?.let { Util.getStat(it, "j.2C", "startup") })
     println()
 
     val sysmap = Model.scrapeTables("BBCF", "Noel_Vermillion", Model.TableType.CARGO_TABLE)
@@ -63,6 +65,7 @@ fun main(args: Array<String>) {
     println(wikimap["Air Revolver Action Table"]?.let { Util.getCol(it, 0) })
     println(wikimap["Air Revolver Action Table"]?.let { Util.getCol(it, "Cancels", true) })
     println(wikimap["Ground Revolver Action Table"]?.let { Util.getHeadersWikitable(it) })
+    println(wikimap["Ground Revolver Action Table"]?.let { Util.getCell(it, 0, 0, true) })
     println()
 
     val dbfzmap = Model.scrapeTables("DBFZ", "Android_18", Model.TableType.WIKI_TABLE)
@@ -71,4 +74,28 @@ fun main(args: Array<String>) {
 
     val p4map = Model.scrapeTables("P4U2R", "Marie", Model.TableType.WIKI_TABLE)
     println(p4map["Ground P Combo Table"]?.let { Util.getHeadersWikitable(it) })
+    println(p4map["Ground P Combo Table"]?.let { Util.getHeadersHorizontalWikitable(it) })
+    println(p4map["Ground P Combo Table"]?.let { Util.getHeadersVerticalWikitable(it) })
 }
+
+/// TODO: cli structure
+//list
+//	moves
+//	stat (column)
+//	stats (headers)
+//	tables
+//
+//data
+//	move-all
+//	move-stat
+//
+//wikitable
+//	headers
+//	row
+//	column
+//	cell (cross)
+//
+//find
+//	cell
+//	moves for stat not-empty/null
+//	moves for stat under/equal/above/containing
