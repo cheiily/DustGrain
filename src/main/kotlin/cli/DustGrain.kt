@@ -1,10 +1,8 @@
 package cli
 
-import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.NoOpCliktCommand
 
 /**
  * Main command for branching.
  */
-class DustGrain : CliktCommand() {
-    override fun run() = Unit
-}
+class DustGrain : NoOpCliktCommand()

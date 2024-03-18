@@ -34,6 +34,7 @@ object Model {
         val url = "https://www.dustloop.com/w/$wiki/$char/Frame_Data"
         val doc = Jsoup.connect(url)
             .timeout(5000)
+            .userAgent("DustGrain/2.0 (https://github.com/cheiily/DustGrain; cheiily.pm@gmail.com) JSoup/1.17")
             .get()
 
         //unify tables

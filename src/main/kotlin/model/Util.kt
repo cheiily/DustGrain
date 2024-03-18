@@ -87,7 +87,7 @@ object Util {
         }
     }
 
-    fun getRow(table: Element, rowHead: String, wikitable: Boolean = false) : List<String> {
+    fun getRow(table: Element, rowHead: String) : List<String> {
         return table.select("tbody").first()
             ?.select("tr")?.first { element ->
                 element.select("th, td").first()?.let { getTooltipText(it) } == rowHead
@@ -112,11 +112,33 @@ object Util {
         return getRow(table, row, wikitable)[col]
     }
 
+    fun getCell(table: Element, rowhead: String, colhead: String, wikitable: Boolean) : String {
+        var colidx = -1
+        for (hdr in if (wikitable) Util.getHeadersHorizontalWikitable(table) else Util.getHeaders(table)) {
+            colidx++
+            if (hdr == colhead) break
+        }
+        return getRow(table, rowhead)[colidx]
+    }
+
     fun getStat(table: Element, move: String, stat: String) : String {
         val col = getCol(table, stat)
         val idx = getCol(table, "input").indexOf(move)
 
         return col[idx]
     }
+
+    fun rows(table: Element) : List<List<String>> {
+        return table.select("tbody").first()
+            ?.select("tr")
+            ?.mapNotNull {
+                row -> row.select("td")?.mapNotNull { element -> element.text() }
+            }.orEmpty()
+    }
+
+    //todo
+//    fun cols(table: Element) : List<List<String>> {
+//
+//    }
 
 }
