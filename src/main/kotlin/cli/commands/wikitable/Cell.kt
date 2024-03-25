@@ -58,14 +58,20 @@ class Cell : CommonArgs("Extract a cell (crossing) from a cross-table") {
 
         val wiki = Model.scrapeTables(wiki, character, Model.TableType.WIKI_TABLE)
         if (!wiki.containsKey(table)) {
-            echo("Invalid argument: No such wikitable found.", err = true)
+            echo("Invalid argument: No such cross-table found.", err = true)
             throw ProgramResult(1)
         }
 
         if (indices) {
-            echo(Json.encodeToString(mapOf("${ri}x${ci}" to Util.getCell(wiki[table]!!, ri, ci, true))))
+            val ret = Util.getCell(wiki[table]!!, ri, ci, true)
+            if (pretty)
+                echo("Crossing X:$ci x Y:$ri is $ret")
+            else echo(Json.encodeToString(mapOf("${ri}x${ci}" to ret)))
         } else {
-            echo(Json.encodeToString(mapOf("${rh}x${ch}" to Util.getCell(wiki[table]!!, rh, ch, true))))
+            val ret = Util.getCell(wiki[table]!!, rh, ch, true)
+            if (pretty)
+                echo("Crossing $rh x $ch is $ret")
+            else echo(Json.encodeToString(mapOf("${rh}x${ch}" to ret)))
         }
     }
 }

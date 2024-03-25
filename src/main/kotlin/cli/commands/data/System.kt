@@ -19,7 +19,7 @@ class System : CommonArgs("Retrieves system data for specified character.") {
                     "${pair.first} = ${pair.second}"
                 }
             )
-            else echo(Json.encodeToString(mapOf("System Data" to ret.toMap())))
+            else echo(Json.encodeToString(mapOf("$character" to ret.toMap())))
         } ?: run {
             echo("No \"System Data\" table found for this url.", err = true)
             throw ProgramResult(1)

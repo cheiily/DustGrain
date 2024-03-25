@@ -21,8 +21,8 @@ class Cell : CommonArgs("Find cell of data table via indices.") {
         data[table]?.let {
             val v = Util.getCell(it, row, col, false)
 
-            if (pretty) echo("${Util.getRow(it, row)[0]} x ${Util.getHeaders(it)[col]} = $v")
-            else echo(Json.encodeToString(v))
+            if (pretty) echo("${Util.getRow(it, row)[0]} ${Util.getHeaders(it)[col]} is $v")
+            else echo(Json.encodeToString(mapOf("${row}x${col}" to v)))
         } ?: run {
             echo("Invalid argument: No such data table found.", err = true)
             throw ProgramResult(1)

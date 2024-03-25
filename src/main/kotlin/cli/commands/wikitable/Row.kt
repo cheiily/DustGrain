@@ -30,7 +30,10 @@ class Row : CommonArgs("Extract a row from a cross-table") {
                 }
             }
 
-            echo(Json.encodeToString(mapOf((if (method is Int) Util.getHeadersVerticalWikitable(it)[method as Int] else method as String) to ret)))
+            val head = if (method is Int) Util.getHeadersVerticalWikitable(it)[method as Int] else method as String
+            if (pretty)
+                echo("In row $head are:\n\t" + ret.joinToString("\n\t") { s: String -> "-$s" })
+            else echo(Json.encodeToString(mapOf(head to ret)))
         } ?: run {
             echo("Invalid argument: No such cross-table found.", err = true)
             throw ProgramResult(1)

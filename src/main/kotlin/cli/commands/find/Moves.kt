@@ -102,14 +102,27 @@ class Moves : CommonArgs("Filter moves by stat.") {
             data_vals[tab] = temp_vals
         }
 
-        if (heads) echo(Json.encodeToString(data_heads))
+        if (heads) {
+            if (pretty)
+                echo(data_heads.entries.filter { (_, v) -> v.isNotEmpty() }.joinToString("\n") {
+                        entry -> "${entry.key}:\n\t" + entry.value.joinToString("\n\t") { s: String -> "- $s" }
+                })
+            else echo(Json.encodeToString(data_heads.filter { (_, v) -> v.isNotEmpty() }))
+        }
         else {
-            val data_zip: MutableMap<String, List<Pair<String, String>>> = mutableMapOf()
+            val data_zip: MutableMap<String, Map<String, String>> = mutableMapOf()
             for (key in data_vals.keys) {
-                data_zip[key] = data_heads[key]!!.zip(data_vals[key]!!)
+                data_zip[key] = data_heads[key]!!.zip(data_vals[key]!!).toMap()
             }
 
-            echo(data_zip)
+            if (pretty) {
+                echo( data_zip.entries.filter { (_, v) -> v.isNotEmpty() }.joinToString("\n") {
+                        entry -> "${entry.key}:\n\t" + entry.value.entries.joinToString("\n\t") {
+                        moveEntry -> "${moveEntry.key} : ${moveEntry.value}"
+                }
+                } )
+            } else
+                echo(Json.encodeToString(data_zip.filter { (_, v) -> v.isNotEmpty() }))
         }
     }
 
