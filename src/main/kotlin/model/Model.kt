@@ -11,6 +11,7 @@ object Model {
     }
 
     /**
+     * Previous way of extracting data from the website. Unable to organize moves by category but still functional.
      * Common function for extracting table elements from dustloop wiki.
      *
      * The utilized gimmick for pulling data from dustloop is the fact each table-row has a details-control cell,
@@ -20,21 +21,34 @@ object Model {
      * @param char Character, as observed in the actual url.
      * @return List of HTML Elements, corresponding to table cells with the details-control class of "td" tag-name.
      * @see Element
+     * @see scrapeTables
+     * @since 1.0
      */
     private fun scrapeControls(wiki: String, char: String): kotlin.collections.List<Element> {
         val url = "https://www.dustloop.com/w/$wiki/$char/Frame_Data"
         val doc = Jsoup.connect(url)
             .timeout(5000)
+            .userAgent("DustGrain/2.0 (https://github.com/cheiily/DustGrain) JSoup/1.17")
             .get()
 
         return doc.getElementsByClass("details-control").filter { elem -> elem.tagName() == "td" }
     }
 
+    /**
+     * Table extraction method.
+     * The keys are provided via the previous element of the table, or its collapsible header.
+     *
+     * @param wiki Sub-wiki name, as observed in the actual url.
+     * @param char Character, as observed in the actual url.
+     * @param type Desired type of tables to extract
+     * @return Map of table names to table elements.
+     * @since 2.0
+     */
     fun scrapeTables(wiki: String, char: String, type: TableType = TableType.DATA_TABLE): Map<String, Element> {
         val url = "https://www.dustloop.com/w/$wiki/$char/Frame_Data"
         val doc = Jsoup.connect(url)
             .timeout(5000)
-            .userAgent("DustGrain/2.0 (https://github.com/cheiily/DustGrain; cheiily.pm@gmail.com) JSoup/1.17")
+            .userAgent("DustGrain/2.0 (https://github.com/cheiily/DustGrain) JSoup/1.17")
             .get()
 
         //unify tables
@@ -80,6 +94,7 @@ object Model {
      * @return Map of a move's properties keyed to the property name.
      * @see scrapeControls
      * @see Util.getParentTable
+     * @since 1.0
      */
     fun getData(wiki: String, char: String, move: String) : Map<String, String> {
         val cntrl = scrapeControls(wiki, char)
@@ -108,6 +123,7 @@ object Model {
      * @param char Character name, as observed in the actual url.
      * @return List of input strings
      * @see scrapeControls
+     * @since 1.0
      */
     fun listMoves(wiki: String, char: String): List<String> {
         //todo use getCol "input" or first col if not found

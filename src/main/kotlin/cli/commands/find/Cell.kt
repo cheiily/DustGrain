@@ -13,8 +13,8 @@ import model.Util
 
 class Cell : CommonArgs("Find cell of data table via indices.") {
     val table by argument(help = "Table to peek.")
-    val row by option("-ri", "-yi", "--rowindex", help = "Index of desired row.").int().required()
-    val col by option("-ci", "-xi", "--colindex", help = "Index of desired column").int().required()
+    val row by option("-ri", "-y", "--rowindex", help = "Index of desired row.").int().required()
+    val col by option("-ci", "-x", "--colindex", help = "Index of desired column").int().required()
 
     override fun run() {
         val data = Model.scrapeTables(wiki, character)

@@ -11,7 +11,7 @@ import model.Util.listMoves
 import java.util.*
 
 class Moves : CommonArgs("List moves for the specified character") {
-    val table by option(help = "Table/category to narrow down the list to.")
+    val table by option("-t", "--table", help = "Table/category to narrow down the list to.")
 
     override fun run() {
         val tables = Model.scrapeTables(wiki, character)

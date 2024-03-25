@@ -11,7 +11,7 @@ import model.Util
 
 class Stat : CommonArgs("Lists the specified stat for every move.") {
     val stat by argument(help = "Stat to list.")
-    val table by option(help = "Table to narrow down the list to.")
+    val table by option("-t", "--table", help = "Table to narrow down the list to.")
 
     override fun run() {
         val datatable = Model.scrapeTables(wiki, character)
