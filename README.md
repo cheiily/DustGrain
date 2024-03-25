@@ -1,10 +1,81 @@
 # DustGrain
-Dustloop-scraping utility with a CLI interface.
-Written in kotlin with the help of clikt and jsoup.
+Dustloop-scraping utility with a CLI interface written in kotlin with the help of clikt and jsoup.
+
+Version 2.0 introduces a major rework to the tool. 
+At its core, the scraping functionality has been changed to allow for easier data grouping into tables, as present on Dustloop.\
+Thanks to that change, the tool now offers much more utility, going from 2 commands to 12!
 
 ## Usage
 - Check `dustgrain -h` or `dustgrain <command> -h` for immediate help.
+- All commands require common `wiki` and `character` positional arguments. These will be used to form the query url and should be passed as visible in the real URL. E.g. `BBCF` abd `Noel_Vermillion`.
+- All commands package its return into json. In most cases the returned data is put under a
+  key equivalent to the command's most specific piece of input, e.g. `dustgrain move GBVS Djeeta c.L` will key the data with `c.L`.
+  This can slightly vary with some more advanced commands, but is applicable to the vast majority of them. 
+- In case of error the app will exit with non-zero status code and print the error to the error stream.
+  Additionally, an error json of `{"error":""}` will be printed to the standard stream.
+- All commands also take a `-p` or `--pretty` flag to present the data in a more readable way. 
 
+
+## Commands
+
+DustGrain's commands are organized in 4 groups:
+
+### Data
+<details><summary>Move</summary>
+
+</details>
+
+<details><summary>System</summary>
+
+</details>
+
+### List
+<details><summary>Moves</summary>
+
+</details>
+
+<details><summary>Stat</summary>
+
+</details>
+
+<details><summary>Stats</summary>
+
+</details>
+
+<details><summary>Tables</summary>
+
+</details>
+
+### Find
+<details><summary>Cell</summary>
+
+</details>
+
+<details><summary>Moves</summary>
+
+</details>
+
+### Wikitable
+<details><summary>Headers</summary>
+
+</details>
+
+<details><summary>Row</summary>
+
+</details>
+
+<details><summary>Column</summary>
+
+</details>
+
+<details><summary>Cell</summary>
+
+</details>
+
+
+
+
+# OLD - DELETE THIS
 DustGrain currently offers two commands:
 ### List
 <details>
