@@ -35,7 +35,7 @@ class Move : CommonArgs("Get a move's data") {
             }
 
             if (pretty) echo("$stat = $value")
-            else echo(Json.encodeToString(mapOf("data" to mapOf(Pair(stat, value)))))
+            else echo(Json.encodeToString(mapOf(Pair(stat, value))))
 
         } else {
             val data = Model.getData(wiki, character, move)
@@ -45,7 +45,7 @@ class Move : CommonArgs("Get a move's data") {
                     "${pair.first} = ${pair.second}"
                 }
             )
-            else echo(Json.encodeToString(mapOf("data" to data)))
+            else echo(Json.encodeToString(mapOf("$move" to data)))
         }
     }
 }
