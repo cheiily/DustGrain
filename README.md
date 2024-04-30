@@ -303,6 +303,7 @@ Return:
 </details>
 
 <details><summary>Moves</summary>
+Find moves adhering to a custom set of filters.
 
 #### Arguments
 <details><summary>Common arguments</summary>
@@ -315,20 +316,48 @@ Return:
 
 </details>
 
+- pos 2: stat - stat column to filter
+- option: table (-t, --table)
+  - Table to limit the search to
+- option: filter, one of either set, sets can contain multiple options:
+  - numeric (--num)
+    - less than (-lt)
+    - less or equal (-le)
+    - equal (-eq)
+    - greater than (-gt)
+    - greater or equal (-ge)
+  - text (--text)
+    - equal string (-eqs)
+    - contains (-l, --cont)
+    - starts with (-s, --start)
+    - ends with (-e, --end)
+    - custom regex (-r, --regex)
+- headers: (--headers, --headers-only)
+  - only display the found move's first column, otherwise map to the found value
 
 
 #### Return
 
-
+- Map with table names as keys and query result as values. 
+  - Without -h, the result is another map of header to found value.
+  - With -h, the result is simply a list of the moves' headers.
+- The map only contains tables with results.
+  - Key: None, not packaged (table header)
 
 #### Example
 Usage:
 ```shell
-
+.\dustgrain find moves GBVSR Djeeta --num onBlock -gt -5 -lt 0
+```
+```shell
+.\dustgrain find moves GBVSR Djeeta --text input -s '2' --cont '4' -e 'L' --headers
 ```
 Return:
 ```json
-
+{"Normal Moves":{"c.H":"-3","c.XX":"-3","c.XXX":"-4","c.XX6M":"-4","c.XX6H":"-4","2L":"-2","2M":"-3"},"Unique Action":{"5U lv0":"-2","5U lv1":"-2"},"Skills":{"236[L]":"-4","236[M]":"-4","214M":"-4","214U":"-4"}}
+```
+```json
+{"Skills":["214L","214L~214L"]}
 ```
 
 </details>
