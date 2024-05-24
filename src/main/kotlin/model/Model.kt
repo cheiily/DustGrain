@@ -54,7 +54,7 @@ object Model {
         //unify tables
         doc.getElementsByClass("details-control").forEach( Element::remove )
 
-        doc.getElementsByClass("section-heading")
+        doc.getElementsByClass("citizen-section-heading")
             .let {
                 //cull navigation & glossary
                 return@let it.subList(1, it.size - 1)
