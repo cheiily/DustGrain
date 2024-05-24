@@ -136,9 +136,4 @@ object Util {
             }.orEmpty()
     }
 
-    //todo
-//    fun cols(table: Element) : List<List<String>> {
-//
-//    }
-
 }
