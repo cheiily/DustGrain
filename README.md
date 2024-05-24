@@ -118,21 +118,20 @@ List available moves for the specified character. Optionally cut down to one cat
 
 #### Return
 
-# TODO this vvvvvvvvvvvvvvvvvv
 - Map of category name to list of move inputs.
   - Key : Table name
 
 #### Example
 Usage:
 ```shell
-
+.\dustgrain list moves GBVSR Djeeta
 ```
 ```shell
 .\dustgrain list moves GBVSR Djeeta --table "Normal Moves"
 ```
 Return:
 ```json
-
+{"Normal Moves":["c.L","c.M","c.H","c.XX","c.XXX","c.XX6M","c.XX6H","f.L","f.M","f.H","2L","2M","2H","2U","66L","66M","66H","j.L","j.M","j.H","j.U"],"Unique Action":["5U lv0","5U lv1","5U lv2","5U Lv3","5U Lv4","5[U] ~ X"],"Skills":["236L","236M","236H","236[L]","236[M]","236[H]","214L","214L~214L","214M","214M~214M","214H","214H~214H","214H~214H~214H","623L","623M","623H","236U","623U","214U"],"Skybound Arts":["236236H","236236U"]}
 ```
 ```json
 {"Normal Moves":["c.L","c.M","c.H","c.XX","c.XXX","c.XX6M","c.XX6H","f.L","f.M","f.H","2L","2M","2H","2U","66L","66M","66H","j.L","j.M","j.H","j.U"]}
@@ -160,7 +159,6 @@ List the specified property for every move. Optionally narrow it down to a speci
 
 #### Return
 
-# TODO this vvvvvvvvvvvvvvvvvv
 - Map of category name to list of move inputs.
   - Key : Table name
 
@@ -170,14 +168,14 @@ Usage:
 .\dustgrain list stat GBVSR Djeeta startup
 ```
 ```shell
-
+.\dustgrain list stat GBVSR Djeeta startup -t "Normal Moves"
 ```
 Return:
 ```json
 {"Normal Moves":{"c.L":"5","c.M":"6","c.H":"8","c.XX":"9","c.XXX":"12","c.XX6M":"12","c.XX6H":"18","f.L":"6","f.M":"8","f.H":"10","2L":"6","2M":"7","2H":"11","2U":"7","66L":"8","66M":"12","66H":"15","j.L":"5","j.M":"6","j.H":"7","j.U":"12"},"Unique Action":{"5U lv0":"26/16*","5U lv1":"26/16*","5U lv2":"26/16*","5U Lv3":"26/16*","5U Lv4":"26/16*","5[U] ~ X":""},"Skills":{"236L":"16","236M":"16","236H":"16","236[L]":"41","236[M]":"41","236[H]":"30","214L":"14","214L~214L":"20","214M":"20","214M~214M":"20","214H":"15","214H~214H":"11","214H~214H~214H":"17","623L":"6","623M":"12","623H":"11","236U":"11","623U":"8","214U":"13"},"Skybound Arts":{"236236H":"7+7","236236U":"7+6"},"Other":{"Ground Throw":"4","Air Throw":"5","Raging Strike":"28","Raging Chain":"","Brave Counter":"10"}}
 ```
 ```json
-
+{"Normal Moves":{"c.L":"5","c.M":"6","c.H":"8","c.XX":"9","c.XXX":"12","c.XX6M":"12","c.XX6H":"18","f.L":"6","f.M":"8","f.H":"10","2L":"6","2M":"7","2H":"11","2U":"7","66L":"8","66M":"12","66H":"15","j.L":"5","j.M":"6","j.H":"7","j.U":"12"}}
 ```
 
 </details>

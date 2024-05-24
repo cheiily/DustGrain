@@ -7,33 +7,38 @@ import com.github.ajalt.clikt.parameters.options.option
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import model.Model
+import model.Util
 import model.Util.listMoves
 import java.util.*
+import kotlin.collections.List
 
 class Moves : CommonArgs("List moves for the specified character") {
     val table by option("-t", "--table", help = "Table/category to narrow down the list to.")
 
     override fun run() {
-        val tables = Model.scrapeTables(wiki, character)
-
-        val moves =
-            if (table == null) Model.listMoves(wiki, character)
-            else {
-                if (!tables.containsKey(table)) {
-                    echo("Invalid argument: No such table found.", err = true)
-                    throw ProgramResult(1)
-                }
-                tables.listMoves(table!!)
+        var tables = Model.scrapeTables(wiki, character)
+        if (table != null) {
+            if (!tables.containsKey(table)) {
+                echo("Invalid argument: No such data table found.", err = true)
+                throw ProgramResult(1)
             }
 
-        val head = table ?: "All Moves"
+            tables = mapOf(table!! to tables[table]!!)
+        }
 
-        if (pretty) echo(
-            "${head.replaceFirstChar {
-                if (it.isLowerCase()) it.titlecase(Locale.getDefault())
-                else it.toString() 
-            }}: $moves")
-        else echo(Json.encodeToString(mapOf(head to moves)))
+        var ret: MutableMap<String, List<String>> = mutableMapOf()
+        for ((k, v) in tables) {
+            ret[k] = Util.getCol(v, "input");
+        }
+
+        if (pretty) {
+            var str = ""
+            for ((k, v) in ret.filter { (_,v) -> v.isNotEmpty() }) {
+                str += "$k\n\t- " + v.joinToString("\n\t- ") + '\n'
+            }
+            echo(str)
+        } else
+            echo(Json.encodeToString(ret.filter { (_,v) -> v.isNotEmpty() }))
     }
 
 }

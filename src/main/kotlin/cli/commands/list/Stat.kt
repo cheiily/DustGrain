@@ -24,7 +24,7 @@ class Stat : CommonArgs("Lists the specified stat for every move.") {
                 if (pretty)
                     echo(ret.joinToString("\n") { pair -> "${pair.first} : ${pair.second}" })
                 else
-                    echo(Json.encodeToString(mapOf(stat to ret.toMap())))
+                    echo(Json.encodeToString(mapOf(table to ret.toMap())))
 
             } ?: run {
                 echo("Invalid argument: No such table found.", err = true)
