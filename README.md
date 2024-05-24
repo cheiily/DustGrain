@@ -45,7 +45,7 @@ All statistics regarding the specified move, or just the one asked for with --st
 - Map of property name (column header) to its value.
   - Key : move (pos 2)
 - If -s was used, single-element map of requested prop to its value. 
-  - Key : none, not packaged (stat).
+  - Key : Stat (as per the option)
 
 
 #### Example
@@ -120,7 +120,7 @@ List available moves for the specified character. Optionally cut down to one cat
 
 # TODO this vvvvvvvvvvvvvvvvvv
 - Map of category name to list of move inputs.
-  - Key : none, not packaged (table header, category name)
+  - Key : Table name
 
 #### Example
 Usage:
@@ -162,7 +162,7 @@ List the specified property for every move. Optionally narrow it down to a speci
 
 # TODO this vvvvvvvvvvvvvvvvvv
 - Map of category name to list of move inputs.
-  - Key : none, not packaged (table header/category name)
+  - Key : Table name
 
 #### Example
 Usage:
@@ -201,7 +201,7 @@ List all properties available in this table (headers).
 #### Return
 
 - List of column headers (property names) of the table.
-  - Key: table
+  - Key: Table name
 
 #### Example
 Usage:
@@ -238,7 +238,7 @@ The default behavior is equivalent to `-c -d -w`.
 #### Return
 
 - Map of table type to list of table headers, matching that type.
-  - Key: none, not packaged (table type).
+  - Key: Table name
 
 #### Example
 Usage:
@@ -342,7 +342,7 @@ Find moves adhering to a custom set of filters.
   - Without -h, the result is another map of header to found value.
   - With -h, the result is simply a list of the moves' headers.
 - The map only contains tables with results.
-  - Key: None, not packaged (table header)
+  - Key: Table name
 
 #### Example
 Usage:
@@ -366,6 +366,7 @@ Return:
 Handling the cross-tables, usually containing info about gatling/combo links.
 
 <details><summary>Headers</summary>
+Extract header values.
 
 #### Arguments
 <details><summary>Common arguments</summary>
@@ -378,25 +379,33 @@ Handling the cross-tables, usually containing info about gatling/combo links.
 
 </details>
 
+- pos 2: table - Table to extract data from
+- flag: vertical (-v, --vertical)
+  - Retrieve vertical headers
+- flag: horizontal (-h, --horizontal)
+  - Retrieve horizontal headers
 
 
 #### Return
 
-
+- Map of header orientation to list of header values
+  - Keys: "Vertical Headers" and "Horizontal Headers"
+  - Both will be present in case of no flag or both flags.
 
 #### Example
 Usage:
 ```shell
-
+.\dustgrain wikitable headers BBCF Noel_Vermillion "Ground Revolver Action Table"
 ```
 Return:
 ```json
-
+{"Vertical Headers":["5A[3]","5B[1]","5C[1]","2A[3]","2B[2]","2C","6A","6B","6C","3C"],"Horizontal Headers":["A","B","C","D","Cancels"]}
 ```
 
 </details>
 
 <details><summary>Row</summary>
+Get a full data row, matched by header or index.
 
 #### Arguments
 <details><summary>Common arguments</summary>
@@ -409,25 +418,36 @@ Return:
 
 </details>
 
-
+- pos 2: table - Table to extract data from
+- only one of:
+  - option: index (-i, --index)
+  - option: header (-h, --header)
 
 #### Return
 
-
+- Map of row header to list of values
+  - Key: row header
 
 #### Example
 Usage:
 ```shell
-
+.\dustgrain wikitable row BBCF Noel_Vermillion "Ground Revolver Action Table" -h 2C
+```
+```shell
+.\dustgrain wikitable row BBCF Noel_Vermillion "Ground Revolver Action Table" -i 0
 ```
 Return:
 ```json
-
+{"2C":["-","-","5C, 3C","5D, 2D, 6D, 4D","Special/Super"]}
+```
+```json
+{"5A[3]":["5A[+], 2A, 6A","5B, 2B, 6B","5C, 2C, 6C, 3C","5D, 2D, 6D, 4D","Throw, Jump, Special/Super"]}
 ```
 
 </details>
 
 <details><summary>Column</summary>
+Get a full column of data, matched by header or index.
 
 #### Arguments
 <details><summary>Common arguments</summary>
@@ -440,25 +460,37 @@ Return:
 
 </details>
 
-
+- pos 2: table - Table to extract data from
+- only one of:
+  - option: index (-i, --index)
+  - option: header (-h, --header)
 
 #### Return
 
-
+- Map of column header to list of values
+  - Key: column header
 
 #### Example
 Usage:
 ```shell
-
+.\dustgrain wikitable column BBCF Noel_Vermillion "Ground Revolver Action Table" -i 0
+```
+```shell
+.\dustgrain wikitable column BBCF Noel_Vermillion "Ground Revolver Action Table" -h Cancels
 ```
 Return:
 ```json
-
+{"A":["5A[+], 2A, 6A","6A","-","5A, 2A","6A","-","-","-","-","-"]}
+```
+Return:
+```json
+{"Cancels":["Throw, Jump, Special/Super","Throw, Jump, Special/Super","Throw, Jump[-], Special/Super","Throw, Special/Super","Throw, Special/Super","Special/Super","Throw, Jump, Special/Super","Special/Super","Throw, Jump (2nd Hit), Special/Super","22B/C[-]"]}
 ```
 
 </details>
 
 <details><summary>Cell</summary>
+Get a specific cell, by indices or headers.
 
 #### Arguments
 <details><summary>Common arguments</summary>
@@ -471,110 +503,34 @@ Return:
 
 </details>
 
-
+- pos 2: table - Table to extract data from
+- only one of:
+  - both:
+    - option: row index (-ri, -yi, --rowindex)
+    - option: column index (-ci, -xi, --colindex)
+  - both
+    - option: row header (-rh, -ri, --rowheader)
+    - option: column header (-ch, xh, --colheader)
 
 #### Return
 
-
+- Map of index/header crossing to cell value
+  - Key: index or header crossing, e.g. `1x3`, `2CxD`
 
 #### Example
 Usage:
 ```shell
-
-```
-Return:
-```json
-
-```
-
-</details>
-
-
-
-
-# OLD - DELETE THIS
-DustGrain currently offers two commands:
-### List
-<details>
-Polls the frame data website of the specified character and returns a list of all moves,
-    as listed under the "input" rubric. 
-
-**Will terminate with an exception if the URL formed with parsed parameters is unreachable/incorrect.**
-
-This functionality can also be accessed via `Model.listMoves`.
-#### Arguments
-- pos 0: wiki - dustloop's sub-wiki url module, can be either the full name, enclosed in quotes, or the short version
-- pos 1: character - the character's full name, as seen in the url
-- flag: pretty
-  - on -> prints human-readable version
-  - off -> returns a jsonified list, under a `moves` key
-
-#### Return
-- List of all moves, as listed under the "input" rubric.
-
-#### Example
-Usage:
-```shell
-.\dustgrain list GBVSR Djeeta
-```
-Return:
-```json
-{"moves":["c.L","c.M","c.H","c.XX","c.XXX","c.XX6M","c.XX6H","f.L","f.M","f.H","2L","2M","2H","2U","66L","66M","66H","j.L","j.M","j.H","j.U","5U lv0","5U lv1","5U lv2","5U Lv3","5U Lv4","5[U] ~ X","236L","236M","236H","236[L]","236[M]","236[H]","214L","214L~214L","214M","214M~214M","214H","214H~214H","214H~214H~214H","623L","623M","623H","236U","623U","214U","236236H","236236U","Ground Throw","Air Throw","Raging Strike","Raging Chain","Brave Counter"]}
-```
-</details>
-
-### Data
-<details>
-Polls the frame data website of the specified character and returns a map of the moves properties. 
-The map keys are column headers, values are taken from the matching table row. <br>
-It is currently impossible to access any extra data, like Gatling Tables or System Data with this utility.
-
-**Will terminate with an exception if the URL formed with parsed parameters is unreachable/incorrect.**
-
-This functionality can also be accessed via `Model.getData`.
-
-#### Arguments
-- pos 0: wiki - dustloop's sub-wiki url module, can be either the full name, enclosed in quotes, or the short version
-- pos 1: character - the character's full name, as seen in the url
-- pos 2: move - the move's input as seen under the "input" rubric.
-- flag: pretty
-  - on -> prints human-readable version
-  - off -> prints a jsonified map, under the `data` key.
-
-#### Return
-- Map of the moves properties, keyed with their rubric headers.
-
-#### Example
-Usage:
-```shell 
-.\dustgrain data BBTag Noel_Vermillion "Drive Finisher"
+.\dustgrain wikitable cell BBCF Noel_Vermillion "Ground Revolver Action Table" -ci 3 -ri 1
 ```
 ```shell
-.\dustgrain data -p GGACR May 4123641236H
+.\dustgrain wikitable cell BBCF Noel_Vermillion "Ground Revolver Action Table" -ch C -rh 2A[3]
 ```
 Return:
 ```json
-{"data":{"input":"Drive Finisher","name":"Type II: Bloom Trigger","damage":"1000, 1700","guard":"All","startup":"11","active":"2(7)4","recovery":"33","onBlock":"-16","attribute":"B, BP","invuln":"","p1":"100","p2":"90","cancel":"P","level":"5","blockstun":"20","groundHit":"Crumple, Launch","airHit":"21, 50 + WBounce 50","groundCH":"Crumple, Launch","airCH":"37, 66 + WBounce 50","blockstop":"16, 0","hitstop":"+0","CHstop":"+8"}}
+{"1x3":"5D, 2D, 6D, 4D"}
 ```
-```text
-input = 4123641236H
-name = May and the Jolly Crew
-guard = 70 pixels
-level =
-cancel =
-tension =
-startup = 7+9
-active = 2
-recovery = 6
-onBlock =
-damage = Fatal
-gbp =
-gbm =
-prorate =
-invuln = 1~18F All
-blockstun =
-groundHit =
-airHit =
-hitstop =
+```json
+{"2A[3]xC":"5C, 2C, 6C"}
 ```
+
 </details>
