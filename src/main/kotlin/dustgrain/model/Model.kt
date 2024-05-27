@@ -1,5 +1,6 @@
 package dustgrain.model
 
+import com.github.ajalt.clikt.core.ProgramResult
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 
@@ -129,5 +130,33 @@ object Model {
         //todo use getCol "input" or first col if not found
         val cntrl = scrapeControls(wiki, char)
         return cntrl.mapNotNull { elem -> elem.nextElementSibling()?.text() }
+    }
+
+    /**
+     * Extracts the move input list from dustloop, grouped per category (table header).
+     *
+     * @param wiki Sub-wiki name, as observed in the actual url.
+     * @param char Character name, as observed in the actual url.
+     * @param table Optional table name to limit the search to.
+     * @return Map of category to list of inputs per category.
+     * @see scrapeTables
+     * @since 2.0.1
+     */
+    fun mapOfMoves(wiki: String, char: String, table: String?): Map<String, List<String>> {
+        var tables = scrapeTables(wiki, char)
+        if (table != null) {
+            if (!tables.containsKey(table)) {
+                error("Invalid argument: No such data table found.")
+            }
+
+            tables = mapOf(table to tables[table]!!)
+        }
+
+        var ret: MutableMap<String, List<String>> = mutableMapOf()
+        for ((k, v) in tables) {
+            ret[k] = Util.getCol(v, "input");
+        }
+
+        return ret
     }
 }
