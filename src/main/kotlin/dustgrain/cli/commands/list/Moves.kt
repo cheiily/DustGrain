@@ -13,20 +13,7 @@ class Moves : CommonArgs("List moves for the specified character") {
     val table by option("-t", "--table", help = "Table/category to narrow down the list to.")
 
     override fun run() {
-        var tables = Model.scrapeTables(wiki, character)
-        if (table != null) {
-            if (!tables.containsKey(table)) {
-                echo("Invalid argument: No such data table found.", err = true)
-                throw ProgramResult(1)
-            }
-
-            tables = mapOf(table!! to tables[table]!!)
-        }
-
-        var ret: MutableMap<String, List<String>> = mutableMapOf()
-        for ((k, v) in tables) {
-            ret[k] = Util.getCol(v, "input");
-        }
+        val ret = Model.mapOfMoves(wiki, character, table)
 
         if (pretty) {
             var str = ""
