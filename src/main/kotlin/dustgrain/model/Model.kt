@@ -48,7 +48,6 @@ object Model {
     fun scrapeTables(wiki: String, char: String, type: TableType = TableType.DATA_TABLE): Map<String, Element> {
         val url = "https://www.dustloop.com/w/$wiki/$char/Frame_Data"
         val doc = Jsoup.connect(url)
-            .timeout(5000)
             .userAgent("DustGrain/2.0 (https://github.com/cheiily/DustGrain) JSoup/1.17")
             .get()
 
@@ -148,6 +147,7 @@ object Model {
             if (!tables.containsKey(table)) {
                 error("Invalid argument: No such data table found.")
             }
+
 
             tables = mapOf(table to tables[table]!!)
         }
