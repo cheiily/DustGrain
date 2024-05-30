@@ -154,7 +154,9 @@ object Model {
 
         var ret: MutableMap<String, List<String>> = mutableMapOf()
         for ((k, v) in tables) {
-            ret[k] = Util.getCol(v, "input");
+            var col = Util.getCol(v, "input");
+            if (col.isEmpty()) col = Util.getCol(v, "Input");
+            ret[k] = col;
         }
 
         return ret
