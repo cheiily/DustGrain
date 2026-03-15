@@ -19,7 +19,7 @@ import dustgrain.cli.commands.wikitable.Cell as WikitableCell
  * @see List
  * @see Data
  */
-fun main(args: Array<String>) =
+fun main(args: Array<String>): Unit =
     DustGrain().subcommands(
         List().subcommands(Moves(), Stat(), Stats(), Tables()),
         Data().subcommands(Move(), System()),

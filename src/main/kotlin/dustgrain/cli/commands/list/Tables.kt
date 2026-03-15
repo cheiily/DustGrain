@@ -14,6 +14,8 @@ class Tables : CommonArgs("List tables available for this character.") {
     val onlyWiki by option("-w", "--wiki").flag()
 
     override fun run() {
+        Model.timeout = timeout
+
         val ret : MutableMap<String, List<String>> = mutableMapOf()
 
         var car = onlyCargo;

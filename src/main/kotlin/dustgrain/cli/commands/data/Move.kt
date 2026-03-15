@@ -18,6 +18,8 @@ class Move : CommonArgs("Get a move's data") {
      * Switches on the pretty flag for output formatting.
      */
     override fun run() {
+        Model.timeout = timeout
+
         if (stat != null) {
             var value : String? = null
             val data = Model.scrapeTables(wiki, character)

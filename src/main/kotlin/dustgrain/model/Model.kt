@@ -11,6 +11,8 @@ object Model {
         WIKI_TABLE("wikitable");
     }
 
+    public var timeout: Int = 10000
+
     /**
      * Previous way of extracting data from the website. Unable to organize moves by category but still functional.
      * Common function for extracting table elements from dustloop wiki.
@@ -28,7 +30,7 @@ object Model {
     private fun scrapeControls(wiki: String, char: String): kotlin.collections.List<Element> {
         val url = "https://www.dustloop.com/w/$wiki/$char/Frame_Data"
         val doc = Jsoup.connect(url)
-            .timeout(5000)
+            .timeout(timeout)
             .userAgent("DustGrain/2.0 (https://github.com/cheiily/DustGrain) JSoup/1.17")
             .get()
 
@@ -49,6 +51,7 @@ object Model {
         val url = "https://www.dustloop.com/w/$wiki/$char/Frame_Data"
         val doc = Jsoup.connect(url)
             .userAgent("DustGrain/2.0 (https://github.com/cheiily/DustGrain) JSoup/1.17")
+            .timeout(timeout)
             .get()
 
         //unify tables

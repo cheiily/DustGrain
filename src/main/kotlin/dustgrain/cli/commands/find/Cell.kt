@@ -17,6 +17,8 @@ class Cell : CommonArgs("Find cell of data table via indices.") {
     val col by option("-ci", "-x", "--colindex", help = "Index of desired column").int().required()
 
     override fun run() {
+        Model.timeout = timeout
+
         val data = Model.scrapeTables(wiki, character)
         data[table]?.let {
             val v = Util.getCell(it, row, col, false)

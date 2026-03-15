@@ -19,6 +19,8 @@ class Row : CommonArgs("Extract a row from a cross-table") {
     )
 
     override fun run() {
+        Model.timeout = timeout
+
         val wiki = Model.scrapeTables(wiki, character, Model.TableType.WIKI_TABLE)
         wiki[table]?.let {
             val ret : List<String> = when (method) {

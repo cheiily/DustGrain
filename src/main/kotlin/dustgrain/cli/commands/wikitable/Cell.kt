@@ -27,6 +27,8 @@ class Cell : CommonArgs("Extract a cell (crossing) from a cross-table") {
     )
 
     override fun run() {
+        Model.timeout = timeout
+
         var indices : Boolean = false
         var ri : Int = 0
         var ci : Int = 0

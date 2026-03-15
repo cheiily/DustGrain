@@ -14,6 +14,8 @@ class Stat : CommonArgs("Lists the specified stat for every move.") {
     val table by option("-t", "--table", help = "Table to narrow down the list to.")
 
     override fun run() {
+        Model.timeout = timeout
+
         val datatable = Model.scrapeTables(wiki, character)
         if (table != null) {
             datatable[table]?.let {
