@@ -25,6 +25,8 @@ class Moves : CommonArgs("Filter moves by stat.") {
     val heads by option("--headers", "--headers-only", help = "Only print a list of row-headers (move names). Otherwise list of pairs to filtered value.").flag()
 
     override fun run() {
+        Model.timeout = timeout
+
         var tables = Model.scrapeTables(wiki, character)
         if (table != null) {
             if (!tables.containsKey(table)) {

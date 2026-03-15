@@ -9,6 +9,8 @@ import dustgrain.model.Util
 
 class System : CommonArgs("Retrieves system data for specified character.") {
     override fun run() {
+        Model.timeout = timeout
+
         val tables = Model.scrapeTables(wiki, character, Model.TableType.CARGO_TABLE)
 
         tables["System Data"]?.let {

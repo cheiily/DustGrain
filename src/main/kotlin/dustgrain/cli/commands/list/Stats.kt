@@ -12,6 +12,8 @@ class Stats : CommonArgs("List all stats available for this table (headers).") {
     val table by argument(help = "Table to describe.")
 
     override fun run() {
+        Model.timeout = timeout
+
         val datatable = Model.scrapeTables(wiki, character)
         datatable[table]?.let {
             if (pretty)

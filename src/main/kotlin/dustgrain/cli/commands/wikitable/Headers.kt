@@ -16,6 +16,8 @@ class Headers : CommonArgs("Get headers for the specified wikitable.") {
     val horizontal by option("-h", "--horizontal", help = "Retrieve horizontal headers.").flag()
 
     override fun run() {
+        Model.timeout = timeout
+
         val wiki = Model.scrapeTables(wiki, character, Model.TableType.WIKI_TABLE)
 
         if (!wiki.containsKey(table)) {

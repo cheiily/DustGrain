@@ -13,6 +13,8 @@ class Moves : CommonArgs("List moves for the specified character") {
     val table by option("-t", "--table", help = "Table/category to narrow down the list to.")
 
     override fun run() {
+        Model.timeout = timeout
+
         val ret = Model.mapOfMoves(wiki, character, table)
 
         if (pretty) {

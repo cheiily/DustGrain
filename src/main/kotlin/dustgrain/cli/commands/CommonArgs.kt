@@ -2,11 +2,14 @@ package dustgrain.cli.commands
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
+import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.types.int
 
 abstract class CommonArgs(helpText: String = "Common Arguments:") : CliktCommand(help = helpText) {
     val wiki by argument(help = "Dustloop sub-wiki")
     val character by argument(help = "Character's name as observed in the url")
     val pretty by option("-p", "--pretty", help = "Human readable text.").flag()
+    val timeout by option("--timeout", help = "Timeout for web requests in milliseconds. Default is 10000ms.").int().default(10000)
 }
