@@ -14,13 +14,11 @@ import com.sksamuel.hoplite.fp.Validated
 import java.net.URL
 import kotlin.reflect.KType
 
-
-val config = ConfigLoaderBuilder.default()
+fun loadConfig() = ConfigLoaderBuilder.default()
     .addResourceSource("/application.yml")
     .addDecoder(AppConfig.TableFieldFormatDecoder())
     .build()
     .loadConfigOrThrow<AppConfig>()
-
 
 data class AppConfig(
     val client: Client,

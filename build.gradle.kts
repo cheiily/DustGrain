@@ -24,6 +24,8 @@ dependencies {
     implementation("org.jsoup:jsoup:1.17.2")
     implementation("com.sksamuel.hoplite:hoplite-core:2.9.0")
     implementation("com.sksamuel.hoplite:hoplite-yaml:2.9.0")
+    implementation("io.ktor:ktor-client-core:3.4.1")
+    implementation("io.ktor:ktor-client-cio:3.4.1")
 
     // cli
     implementation("com.github.ajalt.clikt:clikt:4.2.2")
