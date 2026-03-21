@@ -14,8 +14,10 @@ import com.sksamuel.hoplite.fp.Validated
 import java.net.URL
 import kotlin.reflect.KType
 
-fun loadConfig() = ConfigLoaderBuilder.default()
-    .addResourceSource("/application.yml")
+private const val CONFIG_PATH = "/application.yml"
+
+fun loadConfig(configPath: String = CONFIG_PATH) = ConfigLoaderBuilder.default()
+    .addResourceSource(configPath)
     .addDecoder(AppConfig.TableFieldFormatDecoder())
     .build()
     .loadConfigOrThrow<AppConfig>()

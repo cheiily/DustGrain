@@ -20,7 +20,7 @@ class ClientFactoryTest : FeatureSpec({
         }
 
         scenario("should create a client with the correct configuration") {
-            Application.initialize(AppProfile.CLI)
+            Application.initialize(AppProfile.CLI, "")
 
             val client = getClient()
             client shouldNotBeNull {}
