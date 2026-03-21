@@ -20,6 +20,7 @@ dependencies {
     testImplementation("io.github.oshai:kotlin-logging:8.0.01")
     testImplementation("ch.qos.logback:logback-classic:1.5.32")
     testImplementation("org.wiremock:wiremock:3.3.1")
+    testImplementation("io.kotest:kotest-extensions-wiremock:6.1.7")
 
     // core
     implementation("org.jsoup:jsoup:1.17.2")
@@ -32,7 +33,7 @@ dependencies {
 
     // cli
     implementation("com.github.ajalt.clikt:clikt:4.2.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 }
 
 tasks.test {

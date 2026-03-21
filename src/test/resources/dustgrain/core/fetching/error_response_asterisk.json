@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "cargoquery-invalidfieldalias",
+    "info": "Error: Field alias \"_pageName\" starts with an underscore (_). This is not allowed in Cargo API queries.",
+    "*": "See https://www.dustloop.com/wiki/api.php for API usage. Subscribe to the mediawiki-api-announce mailing list at &lt;https://lists.wikimedia.org/postorius/lists/mediawiki-api-announce.lists.wikimedia.org/&gt; for notice of API deprecations and breaking changes."
+  }
+}

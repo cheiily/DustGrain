@@ -1,0 +1,7 @@
+{
+  "error": {
+    "code": "internal_api_error_MediaWiki\\Exception\\MWException",
+    "info": "[ab7A_hhsXoFegp5UK4xrvAAAAJQ] Caught exception of type MediaWiki\\Exception\\MWException",
+    "errorclass": "MediaWiki\\Exception\\MWException"
+  }
+}
