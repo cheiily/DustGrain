@@ -34,28 +34,25 @@ data class TableHeaderResponse (
     )
 }
 
-//@Serializable
-//data class TableDataRequest(
-//    val tables: List<String>,
-//    val fields: List<String>,
-//    val where: String? = null,
-//    val joinOn: String? = null,
-//    val groupBy: String? = null,
-//    val having: String? = null,
-//    val orderBy: String? = null,
-//    val limit: Int? = null,
-//    val offset: Int? = null
-//)
-//
-//
-//@Serializable
-//data class TableDataResponse(
-//    val cargoquery: List<CargoQueryResult>
-//) {
-//    @Serializable data class CargoQueryResult(
-//        val title: String,
-//        val pageid: Int,
-//        val ns: Int,
-//        val cargofields: Map<String, String>
-//    )
-//}
+@Serializable
+data class TableDataRequest(
+    val tables: List<String>,
+    val fields: List<String>,
+    val where: String? = null,
+    val joinOn: String? = null,
+    val groupBy: String? = null,
+    val having: String? = null,
+    val orderBy: String? = null,
+    val limit: Int? = null,
+    val offset: Int? = null
+)
+
+
+@Serializable
+data class TableDataResponse(
+    val cargoquery: List<CargoQueryResult>
+) {
+    @Serializable data class CargoQueryResult(
+        val title: Map<String, String?>
+    )
+}

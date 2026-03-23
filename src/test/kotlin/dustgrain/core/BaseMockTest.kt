@@ -6,6 +6,7 @@ import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import dustgrain.core.config.AppConfig
 import dustgrain.core.config.AppProfile
 import dustgrain.core.config.getClient
+import dustgrain.core.fetching.TableDataRequest
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.FeatureSpec
@@ -58,7 +59,7 @@ abstract class BaseMockTest(body: BaseMockTest.() -> Unit = {}) : FeatureSpec() 
 
     fun thereAreCargoTables() {
         val resourcePath = "/dustgrain/core/fetching/cargotables.json"
-        val content = object {}.javaClass.getResource(resourcePath)?.readText()
+        val content = javaClass.getResource(resourcePath)?.readText()
             ?: throw RuntimeException("Resource not found: $resourcePath")
 
         wiremockServer.stubFor(
@@ -74,7 +75,7 @@ abstract class BaseMockTest(body: BaseMockTest.() -> Unit = {}) : FeatureSpec() 
 
     fun thereAreCargoFields(tableName: String) {
         val resourcePath = "/dustgrain/core/fetching/cargofields_$tableName.json"
-        val content = object {}.javaClass.getResource(resourcePath)?.readText()
+        val content = javaClass.getResource(resourcePath)?.readText()
             ?: throw RuntimeException("Resource not found: $resourcePath")
 
         wiremockServer.stubFor(
@@ -91,7 +92,7 @@ abstract class BaseMockTest(body: BaseMockTest.() -> Unit = {}) : FeatureSpec() 
 
     fun thereIsAMediaWikiError(variant: String) {
         val resourcePath = "/dustgrain/core/fetching/error_response_$variant.json"
-        val content = object {}.javaClass.getResource(resourcePath)?.readText()
+        val content = javaClass.getResource(resourcePath)?.readText()
             ?: throw RuntimeException("Resource not found: $resourcePath")
 
         wiremockServer.stubFor(
@@ -99,6 +100,22 @@ abstract class BaseMockTest(body: BaseMockTest.() -> Unit = {}) : FeatureSpec() 
                 .willReturn(
                     aResponse()
                         .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withBody(content)
+                )
+        )
+    }
+
+    fun thereIsCargoQueryResult(variant: String) {
+        val resourcePath = "/dustgrain/core/fetching/cargoquery_$variant.json"
+        val content = javaClass.getResource(resourcePath)?.readText()
+            ?: throw RuntimeException("Resource not found: $resourcePath")
+
+        wiremockServer.stubFor(
+            get(urlPathMatching("/.*"))
+                .withQueryParam("action", equalTo("cargoquery"))
+                .willReturn(
+                    aResponse()
                         .withHeader("Content-Type", "application/json")
                         .withBody(content)
                 )
