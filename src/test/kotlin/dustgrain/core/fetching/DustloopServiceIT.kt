@@ -4,8 +4,6 @@ import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
 import dustgrain.core.BaseMockTest
-import dustgrain.core.DustloopErrorException
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.maps.shouldContainAll
@@ -64,7 +62,7 @@ class DustloopServiceIT : BaseMockTest({
                 tables = listOf("doesn't select here"),
                 fields = listOf("_", "irrelevant")
             )
-            thereIsCargoQueryResult("gbvsr")
+            thereIsACargoQueryResult("gbvsr")
 
             // when
             val response = dustloopService.getTableData(request)
@@ -85,7 +83,7 @@ class DustloopServiceIT : BaseMockTest({
                 tables = listOf("doesn't select here"),
                 fields = listOf("_", "irrelevant")
             )
-            thereIsCargoQueryResult("bbcf")
+            thereIsACargoQueryResult("bbcf")
 
             // when
             val response = dustloopService.getTableData(request)
@@ -113,7 +111,7 @@ class DustloopServiceIT : BaseMockTest({
                 limit = 100,
                 offset = 50
             )
-            thereIsCargoQueryResult("gbvsr")
+            thereIsACargoQueryResult("gbvsr")
 
             // when
             val response = dustloopService.getTableData(request)
@@ -132,6 +130,57 @@ class DustloopServiceIT : BaseMockTest({
                     .withQueryParam("order_by", equalTo("field1 DESC"))
                     .withQueryParam("limit", equalTo("100"))
                     .withQueryParam("offset", equalTo("50"))
+            )
+        }
+    }
+
+    feature("DustloopService#getImageData") {
+        scenario("[MOCK API] should fetch image data") {
+            // given
+            thereIsImageData("1")
+
+            // when
+            val response = dustloopService.getImageData("BBCF_Noel_Vermillion_d623D.png")
+
+            // then
+            response.shouldNotBeNull()
+            response.query.pages.shouldNotBeEmpty()
+            response.query.pages[0].imageinfo.shouldNotBeEmpty()
+            response.query.pages[0].imageinfo[0].url shouldBe "https://www.dustloop.com/wiki/images/e/e8/BBCF_Noel_Vermillion_d623D.png"
+
+            logger.info { response }
+        }
+
+        scenario("serializes image data request to params") {
+            // given
+            thereIsImageData("1")
+
+            // when
+            val response = dustloopService.getImageData("BBCF_Noel_Vermillion_d623D.png")
+
+            // then
+            response.shouldNotBeNull()
+            wiremockServer.verify(
+                getRequestedFor(urlPathMatching("/.*"))
+                    .withQueryParam("action", equalTo("query"))
+                    .withQueryParam("prop", equalTo("imageinfo"))
+                    .withQueryParam("iiprop", equalTo("url|size|mime"))
+                    .withQueryParam("titles", equalTo("File:BBCF_Noel_Vermillion_d623D.png"))
+                    .withQueryParam("formatversion", equalTo("2"))
+            )
+
+            // and
+            val response2 = dustloopService.getImageData("File:GBVSR_Djeeta_6L.png")
+
+            // then
+            response2.shouldNotBeNull()
+            wiremockServer.verify(
+                getRequestedFor(urlPathMatching("/.*"))
+                    .withQueryParam("action", equalTo("query"))
+                    .withQueryParam("prop", equalTo("imageinfo"))
+                    .withQueryParam("iiprop", equalTo("url|size|mime"))
+                    .withQueryParam("titles", equalTo("File:GBVSR_Djeeta_6L.png"))
+                    .withQueryParam("formatversion", equalTo("2"))
             )
         }
     }

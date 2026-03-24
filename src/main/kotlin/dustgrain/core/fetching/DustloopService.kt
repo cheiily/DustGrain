@@ -29,4 +29,13 @@ class DustloopService(
         request.limit?.let { parameter("limit", it) }
         request.offset?.let { parameter("offset", it) }
     }.body()
+
+    suspend fun getImageData(imageName: String): ImageDataResponse = client.get {
+        val fileParam = if (imageName.startsWith("File:")) imageName else "File:$imageName"
+        parameter("action", "query")
+        parameter("prop", "imageinfo")
+        parameter("iiprop", "url|size|mime")
+        parameter("titles", fileParam)
+        parameter("formatversion", 2)
+    }.body()
 }

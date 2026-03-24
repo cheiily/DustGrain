@@ -1,0 +1,32 @@
+{
+    "batchcomplete": true,
+    "query": {
+        "normalized": [
+            {
+                "fromencoded": false,
+                "from": "File:BBCF_Noel_Vermillion_d623D.png",
+                "to": "File:BBCF Noel Vermillion d623D.png"
+            }
+        ],
+        "pages": [
+            {
+                "pageid": 44127,
+                "ns": 6,
+                "title": "File:BBCF Noel Vermillion d623D.png",
+                "imagerepository": "local",
+                "imageinfo": [
+                    {
+                        "size": 94358,
+                        "width": 587,
+                        "height": 734,
+                        "parsedcomment": "Uploaded with <a href=\"http://www.mediawiki.org/wiki/Extension:SimpleBatchUpload\" class=\"extiw\" title=\"mw:Extension:SimpleBatchUpload\">SimpleBatchUpload</a>",
+                        "url": "https://www.dustloop.com/wiki/images/e/e8/BBCF_Noel_Vermillion_d623D.png",
+                        "descriptionurl": "https://www.dustloop.com/w/File:BBCF_Noel_Vermillion_d623D.png",
+                        "descriptionshorturl": "https://www.dustloop.com/wiki/index.php?curid=44127",
+                        "mime": "image/png"
+                    }
+                ]
+            }
+        ]
+    }
+}

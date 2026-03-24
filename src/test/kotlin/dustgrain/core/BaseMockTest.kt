@@ -6,7 +6,6 @@ import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import dustgrain.core.config.AppConfig
 import dustgrain.core.config.AppProfile
 import dustgrain.core.config.getClient
-import dustgrain.core.fetching.TableDataRequest
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.FeatureSpec
@@ -106,7 +105,7 @@ abstract class BaseMockTest(body: BaseMockTest.() -> Unit = {}) : FeatureSpec() 
         )
     }
 
-    fun thereIsCargoQueryResult(variant: String) {
+    fun thereIsACargoQueryResult(variant: String) {
         val resourcePath = "/dustgrain/core/fetching/cargoquery_$variant.json"
         val content = javaClass.getResource(resourcePath)?.readText()
             ?: throw RuntimeException("Resource not found: $resourcePath")
@@ -114,6 +113,23 @@ abstract class BaseMockTest(body: BaseMockTest.() -> Unit = {}) : FeatureSpec() 
         wiremockServer.stubFor(
             get(urlPathMatching("/.*"))
                 .withQueryParam("action", equalTo("cargoquery"))
+                .willReturn(
+                    aResponse()
+                        .withHeader("Content-Type", "application/json")
+                        .withBody(content)
+                )
+        )
+    }
+
+    fun thereIsImageData(variant: String) {
+        val resourcePath = "/dustgrain/core/fetching/imagedata_$variant.json"
+        val content = javaClass.getResource(resourcePath)?.readText()
+            ?: throw RuntimeException("Resource not found: $resourcePath")
+
+        wiremockServer.stubFor(
+            get(urlPathMatching("/.*"))
+                .withQueryParam("action", equalTo("query"))
+                .withQueryParam("prop", equalTo("imageinfo"))
                 .willReturn(
                     aResponse()
                         .withHeader("Content-Type", "application/json")

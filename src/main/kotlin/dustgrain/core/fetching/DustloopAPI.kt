@@ -56,3 +56,30 @@ data class TableDataResponse(
         val title: Map<String, String?>
     )
 }
+
+@Serializable
+data class ImageDataResponse(
+    val query: ImageUrlQuery
+) {
+    @Serializable
+    data class ImageUrlQuery(
+        val pages: List<ImagePage>
+    ) {
+        @Serializable
+        data class ImagePage(
+            val imagerepository: String,
+            val imageinfo: List<ImageInfo>
+        ) {
+            @Serializable
+            data class ImageInfo(
+                val url: String,
+                val descriptionurl: String,
+                val descriptionshorturl: String,
+                val mime: String,
+                val size: Int,
+                val width: Int,
+                val height: Int
+            )
+        }
+    }
+}
