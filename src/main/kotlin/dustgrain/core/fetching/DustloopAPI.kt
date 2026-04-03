@@ -1,5 +1,6 @@
 package dustgrain.core.fetching
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -53,7 +54,8 @@ data class TableDataResponse(
     val cargoquery: List<CargoQueryResult>
 ) {
     @Serializable data class CargoQueryResult(
-        val title: Map<String, String?>
+        @SerialName("title")
+        val data: Map<String, String?>
     )
 }
 

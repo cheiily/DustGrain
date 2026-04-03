@@ -5,7 +5,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.*
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
 import dustgrain.core.config.AppConfig
 import dustgrain.core.config.AppProfile
-import dustgrain.core.config.getClient
+import dustgrain.core.config.getHttpClient
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.kotest.core.spec.Spec
 import io.kotest.core.spec.style.FeatureSpec
@@ -37,7 +37,7 @@ abstract class BaseMockTest(body: BaseMockTest.() -> Unit = {}) : FeatureSpec() 
     }
 
     val mockClient by lazy {
-        getClient(
+        getHttpClient(
             appName = "",
             appProfile = AppProfile.CLI,
             config = mockConfig

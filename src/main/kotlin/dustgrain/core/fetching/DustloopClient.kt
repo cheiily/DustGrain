@@ -5,7 +5,7 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 
-class DustloopService(
+class DustloopClient(
     val client: HttpClient
 ) {
     suspend fun getTableList(): TableListResponse = client.get {

@@ -8,10 +8,10 @@ import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 
 class DataFetchService(
-    var client: HttpClient = Application.httpClient,
+    var client: DustloopClient = DustloopClient(Application.httpClient),
     var config: AppConfig = Application.config
 ) {
-    suspend fun getTableList(): List<String> = client.get {
-        parameter("action", "cargotables")
-    }.body<TableListResponse>().cargotables
+    suspend fun getTableList(): List<String> = client.getTableList().cargotables
+
+
 }

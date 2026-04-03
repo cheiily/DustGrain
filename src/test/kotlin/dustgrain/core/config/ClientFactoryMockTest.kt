@@ -5,7 +5,7 @@ import dustgrain.core.DustloopErrorException
 import io.kotest.assertions.throwables.shouldThrow
 import io.ktor.client.request.get
 
-class ClientFactoryIT : BaseMockTest({
+class ClientFactoryMockTest : BaseMockTest({
     feature("Configured Http Client") {
 
         scenario("[MOCK API] should handle MediaWiki error response (errorclass)") {

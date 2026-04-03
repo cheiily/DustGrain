@@ -13,7 +13,7 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.util.*
 import kotlinx.serialization.json.Json
 
-fun getClient(
+fun getHttpClient(
     appName: String = Application.appName,
     appProfile: AppProfile = Application.profile,
     config: AppConfig = Application.config

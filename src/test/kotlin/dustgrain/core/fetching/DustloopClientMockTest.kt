@@ -12,16 +12,16 @@ import io.kotest.matchers.maps.shouldNotBeEmpty
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 
-class DustloopServiceIT : BaseMockTest({
-    val dustloopService by lazy { DustloopService(mockClient) }
+class DustloopClientMockTest : BaseMockTest({
+    val dustloopClient by lazy { DustloopClient(mockClient) }
 
-    feature("DustloopService#getTableList") {
+    feature("DustloopClient#getTableList") {
         scenario("[MOCK API] should fetch table list") {
             // given
             thereAreCargoTables()
 
             // when
-            val list = dustloopService.getTableList().cargotables
+            val list = dustloopClient.getTableList().cargotables
 
             // then
             list.shouldNotBeNull()
@@ -31,14 +31,14 @@ class DustloopServiceIT : BaseMockTest({
         }
     }
 
-    feature("DustloopService#getTableHeaders") {
+    feature("DustloopClient#getTableHeaders") {
         scenario("[MOCK API] should fetch header list") {
             // given
             val tableName = "mocktable1"
             thereAreCargoFields(tableName)
 
             // when
-            val headers = dustloopService.getTableHeaders(tableName)
+            val headers = dustloopClient.getTableHeaders(tableName)
 
             // then
             headers.shouldNotBeNull()
@@ -55,7 +55,7 @@ class DustloopServiceIT : BaseMockTest({
         }
     }
 
-    feature("DustloopService#getTableData") {
+    feature("DustloopClient#getTableData") {
         scenario("[MOCK API] should fetch table data (gbvsr)") {
             // given
             val request = TableDataRequest(
@@ -65,12 +65,12 @@ class DustloopServiceIT : BaseMockTest({
             thereIsACargoQueryResult("gbvsr")
 
             // when
-            val response = dustloopService.getTableData(request)
+            val response = dustloopClient.getTableData(request)
 
             // then
             response.shouldNotBeNull()
             response.cargoquery.shouldNotBeEmpty()
-            response.cargoquery[0].title shouldContainAll mapOf(
+            response.cargoquery[0].data shouldContainAll mapOf(
                 "chara" to "Djeeta",
                 "input" to "j.LU"
             )
@@ -86,12 +86,12 @@ class DustloopServiceIT : BaseMockTest({
             thereIsACargoQueryResult("bbcf")
 
             // when
-            val response = dustloopService.getTableData(request)
+            val response = dustloopClient.getTableData(request)
 
             // then
             response.shouldNotBeNull()
             response.cargoquery.shouldNotBeEmpty()
-            response.cargoquery[0].title shouldContainAll mapOf(
+            response.cargoquery[0].data shouldContainAll mapOf(
                 "chara" to "Noel Vermillion",
                 "damage" to "1200"
             )
@@ -114,7 +114,7 @@ class DustloopServiceIT : BaseMockTest({
             thereIsACargoQueryResult("gbvsr")
 
             // when
-            val response = dustloopService.getTableData(request)
+            val response = dustloopClient.getTableData(request)
 
             // then
             response.shouldNotBeNull()
@@ -134,13 +134,13 @@ class DustloopServiceIT : BaseMockTest({
         }
     }
 
-    feature("DustloopService#getImageData") {
+    feature("DustloopClient#getImageData") {
         scenario("[MOCK API] should fetch image data") {
             // given
             thereIsImageData("1")
 
             // when
-            val response = dustloopService.getImageData("BBCF_Noel_Vermillion_d623D.png")
+            val response = dustloopClient.getImageData("BBCF_Noel_Vermillion_d623D.png")
 
             // then
             response.shouldNotBeNull()
@@ -156,7 +156,7 @@ class DustloopServiceIT : BaseMockTest({
             thereIsImageData("1")
 
             // when
-            val response = dustloopService.getImageData("BBCF_Noel_Vermillion_d623D.png")
+            val response = dustloopClient.getImageData("BBCF_Noel_Vermillion_d623D.png")
 
             // then
             response.shouldNotBeNull()
@@ -170,7 +170,7 @@ class DustloopServiceIT : BaseMockTest({
             )
 
             // and
-            val response2 = dustloopService.getImageData("File:GBVSR_Djeeta_6L.png")
+            val response2 = dustloopClient.getImageData("File:GBVSR_Djeeta_6L.png")
 
             // then
             response2.shouldNotBeNull()

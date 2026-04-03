@@ -2,7 +2,7 @@ package dustgrain.core
 
 import dustgrain.core.config.AppConfig
 import dustgrain.core.config.AppProfile
-import dustgrain.core.config.getClient
+import dustgrain.core.config.getHttpClient
 import dustgrain.core.config.loadConfig
 import dustgrain.core.fetching.DataFetchService
 import io.ktor.client.HttpClient
@@ -20,7 +20,7 @@ object Application {
         this.profile = profile
 
         this.config = loadConfig()
-        this.httpClient = getClient()
+        this.httpClient = getHttpClient()
         this.dataFetchService = DataFetchService()
     }
 }
