@@ -77,6 +77,10 @@
       "type": "Wikitext",
       "isList": "",
       "delimiter": "\\"
+    },
+
+    "error": {
+        "type": "UNKNOWN TYPE -->> ERROR"
     }
   }
 }
