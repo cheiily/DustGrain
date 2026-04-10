@@ -1,11 +1,11 @@
 package dustgrain.core.config
 
-import dustgrain.core.BaseMockTest
+import dustgrain.core.ApiMockTest
 import dustgrain.core.DustloopErrorException
 import io.kotest.assertions.throwables.shouldThrow
 import io.ktor.client.request.get
 
-class ClientFactoryMockTest : BaseMockTest({
+class ClientFactoryMockTest : ApiMockTest({
     feature("Configured Http Client") {
 
         scenario("[MOCK API] should handle MediaWiki error response (errorclass)") {

@@ -3,7 +3,7 @@ package dustgrain.core.fetching
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
-import dustgrain.core.BaseMockTest
+import dustgrain.core.ApiMockTest
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.maps.shouldContainAll
@@ -12,7 +12,7 @@ import io.kotest.matchers.maps.shouldNotBeEmpty
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 
-class DustloopClientMockTest : BaseMockTest({
+class DustloopClientMockTest : ApiMockTest({
     val dustloopClient by lazy { DustloopClient(mockClient) }
 
     feature("DustloopClient#getTableList") {

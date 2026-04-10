@@ -14,7 +14,7 @@ import io.kotest.extensions.wiremock.WireMockListener
 import io.ktor.client.plugins.*
 import java.net.URI
 
-abstract class BaseMockTest(body: BaseMockTest.() -> Unit = {}) : FeatureSpec() {
+abstract class ApiMockTest(body: ApiMockTest.() -> Unit = {}) : ComponentMockTest() {
     val logger = KotlinLogging.logger {}
     val wiremockServer: WireMockServer = WireMockServer(WireMockConfiguration.options().port(12345))
 
@@ -27,26 +27,7 @@ abstract class BaseMockTest(body: BaseMockTest.() -> Unit = {}) : FeatureSpec() 
         body()
     }
 
-    val mockUrl by lazy { wiremockServer.baseUrl() }
-
-    val mockConfig by lazy {
-        AppConfig(
-            client = AppConfig.Client(URI.create(mockUrl).toURL(), 1000L, "test-agent"),
-            cargoQueries = emptyList()
-        )
-    }
-
-    val mockClient by lazy {
-        getHttpClient(
-            appName = "",
-            appProfile = AppProfile.CLI,
-            config = mockConfig
-        ).config {
-            defaultRequest {
-                url("$mockUrl?format=json")
-            }
-        }
-    }
+    override val mockUrl: String by lazy { wiremockServer.baseUrl() }
 
     override suspend fun beforeSpec(spec: Spec) {
         wiremockServer.start()

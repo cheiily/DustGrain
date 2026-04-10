@@ -1,17 +1,13 @@
 package dustgrain.core.fetching
 
-import dustgrain.core.BaseMockTest
+import dustgrain.core.ApiMockTest
 import dustgrain.core.formatting.FormatterRef
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 
-class DataFetchServiceTest : BaseMockTest({
-    val dustloopClient by lazy { DustloopClient(mockClient) }
-    val dataFetchService by lazy { DataFetchService(dustloopClient) }
-
-
+class DataFetchServiceTest : ApiMockTest({
     feature("DataFetchService#getTableHeaders") {
         scenario("parses data headers from client response") {
             // given
@@ -19,7 +15,7 @@ class DataFetchServiceTest : BaseMockTest({
 
             // when
             val tableName = "mocktable1"
-            val fetchResult = dataFetchService.getTableHeaders(tableName)
+            val fetchResult = mockDataFetchService.getTableHeaders(tableName)
 
             // then
             val chara = fetchResult.first { it.name == "chara" }.shouldNotBeNull()
@@ -52,8 +48,8 @@ class DataFetchServiceTest : BaseMockTest({
             thereAreCargoTables()
 
             // when
-            val response = dustloopClient.getTableList()
-            val fetchResult = dataFetchService.getTableList()
+            val response = mockDustloopClient.getTableList()
+            val fetchResult = mockDataFetchService.getTableList()
 
             // then
             fetchResult shouldBeEqual response.cargotables
@@ -71,8 +67,8 @@ class DataFetchServiceTest : BaseMockTest({
             thereIsACargoQueryResult("bbcf")
 
             // when
-            val response = dustloopClient.getTableData(request)
-            val fetchResult = dataFetchService.getTableData(request)
+            val response = mockDustloopClient.getTableData(request)
+            val fetchResult = mockDataFetchService.getTableData(request)
 
             // then
             fetchResult shouldBeEqual response.cargoquery.map { it.data }
@@ -87,8 +83,8 @@ class DataFetchServiceTest : BaseMockTest({
             thereIsImageData("1")
 
             // when
-            val response = dustloopClient.getImageData(imageName)
-            val fetchResult = dataFetchService.getImageInfo(imageName)
+            val response = mockDustloopClient.getImageData(imageName)
+            val fetchResult = mockDataFetchService.getImageInfo(imageName)
 
             // then
             fetchResult shouldBeEqual response.query.pages.first().imageinfo.first()
