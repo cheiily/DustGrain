@@ -23,9 +23,18 @@ fun loadConfig(configPath: String = CONFIG_PATH) = ConfigLoaderBuilder.default()
     .loadConfigOrThrow<AppConfig>()
 
 data class AppConfig(
+    val appInfo: AppInfo,
     val client: Client,
     val cargoQueries: List<GameWiki>
 ) {
+    //===================app info===================
+    data class AppInfo(
+        val name: String,
+        val version: String,
+        val cacheVersion: Int,
+        val author: String
+    )
+
 
     //====================client====================
     data class Client(

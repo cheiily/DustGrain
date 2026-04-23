@@ -30,6 +30,9 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:3.4.1")
     implementation("io.ktor:ktor-serialization-kotlinx-json:3.4.1")
     implementation("io.github.oshai:kotlin-logging:8.0.01")
+    implementation("com.mayakapps.kache:kache:2.1.0")
+    implementation("com.mayakapps.kache:file-kache:2.1.0")
+    implementation("net.harawata:appdirs:1.5.0")
 
     // cli
     implementation("com.github.ajalt.clikt:clikt:4.2.2")

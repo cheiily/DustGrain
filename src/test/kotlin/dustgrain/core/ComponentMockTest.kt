@@ -19,7 +19,16 @@ abstract class ComponentMockTest(body: ComponentMockTest.() -> Unit = {}) : Feat
 
     val mockConfig by lazy {
         AppConfig(
-            client = AppConfig.Client(URI.create(mockUrl).toURL(), 1000L, "test-agent"),
+            appInfo = AppConfig.AppInfo(
+                name = "test-app",
+                version = "0.1.0",
+                cacheVersion = 1,
+                author = "test-author"
+            ),
+            client = AppConfig.Client(
+                url = URI.create(mockUrl).toURL(),
+                timeout = 1000L,
+                userAgent = "test-agent"),
             cargoQueries = emptyList()
         )
     }
