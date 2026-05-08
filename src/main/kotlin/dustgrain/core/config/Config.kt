@@ -11,6 +11,7 @@ import com.sksamuel.hoplite.StringNode
 import com.sksamuel.hoplite.addResourceSource
 import com.sksamuel.hoplite.decoder.Decoder
 import com.sksamuel.hoplite.fp.Validated
+import dustgrain.core.cache.CacheMode
 import java.net.URL
 import kotlin.reflect.KType
 
@@ -38,7 +39,8 @@ data class AppConfig(
     //====================cache====================
     data class Cache(
         val version: Int,
-        val maxAgeSeconds: Long
+        val maxAgeSeconds: Long,
+        val mode: CacheMode
     )
 
 

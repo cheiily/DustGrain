@@ -1,6 +1,8 @@
 package dustgrain.core.cache
 
+import dustgrain.core.Application
 import dustgrain.core.ComponentMockTest
+import dustgrain.core.config.AppProfile
 import io.kotest.matchers.nulls.shouldNotBeNull
 
 class DataHeaderCacheMockTest : ComponentMockTest({
@@ -8,9 +10,13 @@ class DataHeaderCacheMockTest : ComponentMockTest({
         scenario("should create an instance") {
             // given
             val dataFetchService = mockDataFetchService
+            Application.initialize(
+                profile = AppProfile.CLI,
+                appConfig = mockConfig.copy(cache = mockConfig.cache.copy(mode = CacheMode.IN_MEMORY))
+            )
 
             // when
-            val cache = InMemoryDataHeaderCache(dataFetchService, mockConfig)
+            val cache = InMemoryDataHeaderCache(dataFetchService)
 
             // then
             cache.shouldNotBeNull()
@@ -21,9 +27,13 @@ class DataHeaderCacheMockTest : ComponentMockTest({
         scenario("should create an instance") {
             // given
             val dataFetchService = mockDataFetchService
+            Application.initialize(
+                profile = AppProfile.CLI,
+                appConfig = mockConfig.copy(cache = mockConfig.cache.copy(mode = CacheMode.PERSISTENT))
+            )
 
             // when
-            val cache = PersistentDataHeaderCache(dataFetchService, mockConfig)
+            val cache = PersistentDataHeaderCache(dataFetchService)
 
             // then
             cache.shouldNotBeNull()
@@ -37,6 +47,10 @@ class DataHeaderCacheMockTest : ComponentMockTest({
         scenario("should create an instance") {
             // given
             val dataFetchService = mockDataFetchService
+            Application.initialize(
+                profile = AppProfile.CLI,
+                appConfig = mockConfig.copy(cache = mockConfig.cache.copy(mode = CacheMode.NOOP))
+            )
 
             // when
             val cache = NoopDataHeaderCache(dataFetchService)

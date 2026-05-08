@@ -14,14 +14,13 @@ import io.ktor.util.*
 import kotlinx.serialization.json.Json
 
 fun getHttpClient(
-    appName: String = Application.appName,
     appProfile: AppProfile = Application.profile,
     config: AppConfig = Application.config
 ) = HttpClient(CIO) {
     expectSuccess = true
 
     install(UserAgent) {
-        agent = "$appName ($appProfile) ${config.client.userAgent}".trim()
+        agent = "($appProfile) ${config.client.userAgent}".trim()
     }
     install(HttpTimeout) {
         requestTimeoutMillis = config.client.timeout

@@ -6,6 +6,7 @@ app_info:
 cache:
   version: 1
   max_age_seconds: 86400
+  mode: PERSISTENT
 
 client:
   url: ""
