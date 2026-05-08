@@ -1,6 +1,7 @@
 package dustgrain.core.cache
 
 import dustgrain.core.ComponentMockTest
+import io.kotest.matchers.shouldBe
 import io.kotest.matchers.nulls.shouldNotBeNull
 
 class DataHeaderCacheMockTest : ComponentMockTest({
@@ -15,6 +16,18 @@ class DataHeaderCacheMockTest : ComponentMockTest({
             // then
             cache.shouldNotBeNull()
         }
+
+        scenario("should use maxAgeSeconds override when provided") {
+            // given
+            val dataFetchService = mockDataFetchService
+            val override = 42L
+
+            // when
+            val cache = InMemoryDataHeaderCache(dataFetchService, mockConfig, override)
+
+            // then
+            cache.maxAgeSeconds shouldBe override
+        }
     }
 
     feature("PersistentDataHeaderCache constructor") {
@@ -27,6 +40,21 @@ class DataHeaderCacheMockTest : ComponentMockTest({
 
             // then
             cache.shouldNotBeNull()
+
+            // cleanup
+            cache.clear()
+        }
+
+        scenario("should use maxAgeSeconds override when provided") {
+            // given
+            val dataFetchService = mockDataFetchService
+            val override = 42L
+
+            // when
+            val cache = PersistentDataHeaderCache(dataFetchService, mockConfig, override)
+
+            // then
+            cache.maxAgeSeconds shouldBe override
 
             // cleanup
             cache.clear()

@@ -10,15 +10,17 @@ typealias DataHeaderCache = SuspendingKVCache<String, List<DataHeader>>
 
 class InMemoryDataHeaderCache(
     dataFetchService: DataFetchService,
-    appConfig: AppConfig = Application.config
+    appConfig: AppConfig = Application.config,
+    maxAgeSecondsOverride: Long? = null
 ) : InMemoryKVCache<String, List<DataHeader>>(
     provider = SuspendingCacheEntryProvider(dataFetchService::getTableHeaders),
-    maxAgeSeconds = appConfig.cache.maxAgeSeconds
+    maxAgeSeconds = maxAgeSecondsOverride ?: appConfig.cache.maxAgeSeconds
 )
 
 class PersistentDataHeaderCache(
     dataFetchService: DataFetchService,
-    appConfig: AppConfig = Application.config
+    appConfig: AppConfig = Application.config,
+    maxAgeSecondsOverride: Long? = null
 ) : PersistentKVCache<String, List<DataHeader>>(
     directory = AppDirsFactory.getInstance().getUserCacheDir(
         appConfig.appInfo.name,
@@ -29,7 +31,7 @@ class PersistentDataHeaderCache(
     keyCodec = StringCodec(),
     valueCodec = DataHeaderListCodec(),
     version = appConfig.cache.version,
-    maxAgeSeconds = appConfig.cache.maxAgeSeconds
+    maxAgeSeconds = maxAgeSecondsOverride ?: appConfig.cache.maxAgeSeconds
 )
 
 class NoopDataHeaderCache(

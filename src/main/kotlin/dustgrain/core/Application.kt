@@ -22,7 +22,12 @@ object Application {
     lateinit var dataFetchService: DataFetchService private set
     lateinit var dataHeaderCache: DataHeaderCache private set
 
-    fun initialize(profile: AppProfile, applicationName: String, cacheMode: CacheMode) {
+    fun initialize(
+        profile: AppProfile,
+        applicationName: String,
+        cacheMode: CacheMode,
+        cacheMaxAgeSecondsOverride: Long? = null
+    ) {
         this.appName = applicationName
         this.profile = profile
         this.cacheMode = cacheMode
@@ -31,8 +36,8 @@ object Application {
         this.httpClient = getHttpClient()
         this.dataFetchService = DataFetchService()
         this.dataHeaderCache = when (cacheMode) {
-            CacheMode.IN_MEMORY -> InMemoryDataHeaderCache(dataFetchService)
-            CacheMode.PERSISTENT -> PersistentDataHeaderCache(dataFetchService)
+            CacheMode.IN_MEMORY -> InMemoryDataHeaderCache(dataFetchService, maxAgeSecondsOverride = cacheMaxAgeSecondsOverride)
+            CacheMode.PERSISTENT -> PersistentDataHeaderCache(dataFetchService, maxAgeSecondsOverride = cacheMaxAgeSecondsOverride)
             CacheMode.NOOP -> NoopDataHeaderCache(dataFetchService)
         }
     }
