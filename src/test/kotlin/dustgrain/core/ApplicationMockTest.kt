@@ -45,7 +45,7 @@ class ApplicationMockTest : ApiMockTest({
             (Application.dataHeaderCache as InMemoryDataHeaderCache).maxAgeSeconds shouldBeEqual 42L
             wiremockServer.verify(
                 getRequestedFor(urlPathMatching("/.*"))
-                    .withHeader("User-Agent", equalTo("(CLI) custom-agent"))
+                    .withHeader("User-Agent", equalTo("renamed-app (CLI) custom-agent"))
             )
         }
     }

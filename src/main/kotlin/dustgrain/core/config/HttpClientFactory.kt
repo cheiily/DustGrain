@@ -20,7 +20,7 @@ fun getHttpClient(
     expectSuccess = true
 
     install(UserAgent) {
-        agent = "($appProfile) ${config.client.userAgent}".trim()
+        agent = "${config.appInfo.name} ($appProfile) ${config.client.userAgent}".trim()
     }
     install(HttpTimeout) {
         requestTimeoutMillis = config.client.timeout

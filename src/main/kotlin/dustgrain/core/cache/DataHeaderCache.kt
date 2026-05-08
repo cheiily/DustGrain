@@ -1,6 +1,7 @@
 package dustgrain.core.cache
 
 import dustgrain.core.Application
+import dustgrain.core.config.AppConfig
 import dustgrain.core.domain.DataHeader
 import dustgrain.core.fetching.DataFetchService
 import net.harawata.appdirs.AppDirsFactory
@@ -8,25 +9,27 @@ import net.harawata.appdirs.AppDirsFactory
 typealias DataHeaderCache = SuspendingKVCache<String, List<DataHeader>>
 
 class InMemoryDataHeaderCache(
-    dataFetchService: DataFetchService
+    dataFetchService: DataFetchService,
+    appConfig: AppConfig = Application.config
 ) : InMemoryKVCache<String, List<DataHeader>>(
     provider = SuspendingCacheEntryProvider(dataFetchService::getTableHeaders),
-    maxAgeSeconds = Application.config.cache.maxAgeSeconds
+    maxAgeSeconds = appConfig.cache.maxAgeSeconds
 )
 
 class PersistentDataHeaderCache(
-    dataFetchService: DataFetchService
+    dataFetchService: DataFetchService,
+    appConfig: AppConfig = Application.config
 ) : PersistentKVCache<String, List<DataHeader>>(
     directory = AppDirsFactory.getInstance().getUserCacheDir(
-        Application.config.appInfo.name,
-        Application.config.appInfo.version + "-c" + Application.config.cache.version,
-        Application.config.appInfo.author
+        appConfig.appInfo.name,
+        appConfig.appInfo.version + "-c" + appConfig.cache.version,
+        appConfig.appInfo.author
     ),
     provider = SuspendingCacheEntryProvider(dataFetchService::getTableHeaders),
     keyCodec = StringCodec(),
     valueCodec = DataHeaderListCodec(),
-    version = Application.config.cache.version,
-    maxAgeSeconds = Application.config.cache.maxAgeSeconds
+    version = appConfig.cache.version,
+    maxAgeSeconds = appConfig.cache.maxAgeSeconds
 )
 
 class NoopDataHeaderCache(
