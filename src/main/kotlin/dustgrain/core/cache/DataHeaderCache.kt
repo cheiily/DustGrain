@@ -6,12 +6,14 @@ import dustgrain.core.domain.DataHeader
 import dustgrain.core.fetching.DataFetchService
 import net.harawata.appdirs.AppDirsFactory
 
-interface DataHeaderCache : SuspendingKVCache<String, List<DataHeader>>
+typealias DataHeaderCache = SuspendingKVCache<String, List<DataHeader>>
 
 class InMemoryDataHeaderCache(
-    dataFetchService: DataFetchService
+    dataFetchService: DataFetchService,
+    appConfig: AppConfig = Application.config
 ) : InMemoryKVCache<String, List<DataHeader>>(
-    provider = SuspendingCacheEntryProvider(dataFetchService::getTableHeaders)
+    provider = SuspendingCacheEntryProvider(dataFetchService::getTableHeaders),
+    maxAgeSeconds = appConfig.cache.maxAgeSeconds
 )
 
 class PersistentDataHeaderCache(
@@ -20,12 +22,14 @@ class PersistentDataHeaderCache(
 ) : PersistentKVCache<String, List<DataHeader>>(
     directory = AppDirsFactory.getInstance().getUserCacheDir(
         appConfig.appInfo.name,
-        appConfig.appInfo.version + "-c" + appConfig.appInfo.cacheVersion,
+        appConfig.appInfo.version + "-c" + appConfig.cache.version,
         appConfig.appInfo.author
     ),
     provider = SuspendingCacheEntryProvider(dataFetchService::getTableHeaders),
     keyCodec = StringCodec(),
-    valueCodec = DataHeaderListCodec()
+    valueCodec = DataHeaderListCodec(),
+    version = appConfig.cache.version,
+    maxAgeSeconds = appConfig.cache.maxAgeSeconds
 )
 
 class NoopDataHeaderCache(

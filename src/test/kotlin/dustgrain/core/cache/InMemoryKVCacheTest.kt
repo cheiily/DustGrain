@@ -14,7 +14,7 @@ class InMemoryKVCacheTest : FeatureSpec({
     feature("InMemoryKVCache#get") {
         scenario("should return null for a key that has not been set") {
             // given
-            val cache = InMemoryKVCache(someProvider())
+            val cache = InMemoryKVCache(someProvider(), 60)
 
             // when
             val value = cache.get("key1")
@@ -25,7 +25,7 @@ class InMemoryKVCacheTest : FeatureSpec({
 
         scenario("should return a value that has been set") {
             // given
-            val cache = InMemoryKVCache(someProvider())
+            val cache = InMemoryKVCache(someProvider(), 60)
             cache.set("key1", "value1")
 
             // when
@@ -39,7 +39,7 @@ class InMemoryKVCacheTest : FeatureSpec({
     feature("InMemoryKVCache#set") {
         scenario("should store a value in the cache") {
             // given
-            val cache = InMemoryKVCache(someProvider())
+            val cache = InMemoryKVCache(someProvider(), 60)
 
             // when
             cache.set("key1", "value1")
@@ -52,7 +52,7 @@ class InMemoryKVCacheTest : FeatureSpec({
     feature("InMemoryKVCache#invalidate") {
         scenario("should remove a value from the cache") {
             // given
-            val cache = InMemoryKVCache(someProvider())
+            val cache = InMemoryKVCache(someProvider(), 60)
             cache.set("key1", "value1")
 
             // when
@@ -66,7 +66,7 @@ class InMemoryKVCacheTest : FeatureSpec({
     feature("InMemoryKVCache#clear") {
         scenario("should remove all values from the cache") {
             // given
-            val cache = InMemoryKVCache(someProvider())
+            val cache = InMemoryKVCache(someProvider(), 60)
             cache.set("key1", "value1")
             cache.set("key2", "value2")
 

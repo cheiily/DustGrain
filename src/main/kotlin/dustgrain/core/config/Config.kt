@@ -24,6 +24,7 @@ fun loadConfig(configPath: String = CONFIG_PATH) = ConfigLoaderBuilder.default()
 
 data class AppConfig(
     val appInfo: AppInfo,
+    val cache: Cache,
     val client: Client,
     val cargoQueries: List<GameWiki>
 ) {
@@ -31,8 +32,13 @@ data class AppConfig(
     data class AppInfo(
         val name: String,
         val version: String,
-        val cacheVersion: Int,
         val author: String
+    )
+
+    //====================cache====================
+    data class Cache(
+        val version: Int,
+        val maxAgeSeconds: Long
     )
 
 

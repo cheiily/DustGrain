@@ -2,6 +2,7 @@ package dustgrain.core.cache
 
 import dustgrain.core.deleteRecursively
 import io.kotest.core.spec.style.FeatureSpec
+import io.kotest.engine.concurrency.TestExecutionMode
 import io.kotest.engine.spec.tempdir
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
@@ -17,7 +18,7 @@ class PersistentKVCacheTest : FeatureSpec({
     }
 
     lateinit var tempDir : File
-    fun getCache() = PersistentKVCache(tempDir.path, someProvider(), keyCodec, valueCodec)
+    fun getCache() = PersistentKVCache(tempDir.path, someProvider(), keyCodec, valueCodec, 1, 3)
     lateinit var cache : PersistentKVCache<String, String>
 
     beforeEach {
@@ -27,11 +28,10 @@ class PersistentKVCacheTest : FeatureSpec({
 
     afterEach {
         cache.clear()
-        cache.close()
         tempDir.toPath().deleteRecursively()
     }
 
-    feature("PersistentKVCache#get and set") {
+    feature("get and set") {
         scenario("should return a value that has been set") {
             // given
             cache
@@ -56,7 +56,7 @@ class PersistentKVCacheTest : FeatureSpec({
         }
     }
 
-    feature("PersistentKVCache#invalidate") {
+    feature("invalidate") {
         scenario("should remove a value from the cache") {
             // given
             cache.set("key1", "value1")
@@ -70,7 +70,7 @@ class PersistentKVCacheTest : FeatureSpec({
         }
     }
 
-    feature("PersistentKVCache#clear") {
+    feature("clear") {
         scenario("should remove all values from the cache") {
             // given
             cache.set("key1", "value1")
@@ -85,25 +85,41 @@ class PersistentKVCacheTest : FeatureSpec({
         }
     }
 
-    feature("PersistentKVCache#persistence") {
+    feature("persistence") {
         scenario("should persist data between cache instances") {
             // given
-            val cache1 = PersistentKVCache(tempDir.path, someProvider(), keyCodec, valueCodec)
+            val cache1 = PersistentKVCache(tempDir.path, someProvider(), keyCodec, valueCodec, 1, 10)
             cache1.set("key1", "persistent value")
-            cache1.close()
 
             // when
             // Create a new cache instance pointing to the same directory
-            val cache2 = PersistentKVCache(tempDir.path, someProvider(), keyCodec, valueCodec)
+            val cache2 = PersistentKVCache(tempDir.path, someProvider(), keyCodec, valueCodec, 1, 10)
             val value = cache2.get("key1")
 
             // then
             value shouldBe "persistent value"
-            cache2.close()
         }
     }
 
-    feature("PersistentKVCache#getOrLoad") {
+    feature("eviction") {
+        scenario("should evict entries that are too old") {
+            // given
+            val cache = PersistentKVCache(tempDir.path, someProvider(), keyCodec, valueCodec, 1, 1)
+            cache.set("key1", "value1")
+
+            // then
+            cache.get("key1") shouldBe "value1"
+
+            // and when
+            Thread.sleep(2000) // Wait for the entry to become stale
+            val value = cache.get("key1")
+
+            // then
+            value.shouldBeNull()
+        }
+    }
+
+    feature("getOrLoad") {
         scenario("should return cached value if present") {
             // given
             cache.set("key1", "cached value")
@@ -127,4 +143,8 @@ class PersistentKVCacheTest : FeatureSpec({
             cache.get("key1") shouldBe "loaded value for key1"
         }
     }
-})
+}) {
+    init {
+        testExecutionMode = TestExecutionMode.Concurrent
+    }
+}

@@ -1,8 +1,11 @@
 app_info:
   name: "DustGrain"
   version: "3.0.0"
-  cache_version: 1
   author: "cheily"
+
+cache:
+  version: 1
+  max_age_seconds: 86400
 
 client:
   url: ""

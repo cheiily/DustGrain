@@ -22,8 +22,11 @@ abstract class ComponentMockTest(body: ComponentMockTest.() -> Unit = {}) : Feat
             appInfo = AppConfig.AppInfo(
                 name = "test-app",
                 version = "0.1.0",
-                cacheVersion = 1,
                 author = "test-author"
+            ),
+            cache = AppConfig.Cache(
+                version = 1,
+                maxAgeSeconds = 3600L
             ),
             client = AppConfig.Client(
                 url = URI.create(mockUrl).toURL(),
