@@ -9,6 +9,7 @@ import dustgrain.core.formatting.FormattingService
 import io.kotest.core.spec.style.FeatureSpec
 import io.ktor.client.plugins.defaultRequest
 import java.net.URI
+import dustgrain.core.cache.CacheMode
 
 abstract class ComponentMockTest(body: ComponentMockTest.() -> Unit = {}) : FeatureSpec({}) {
     init {
@@ -26,7 +27,8 @@ abstract class ComponentMockTest(body: ComponentMockTest.() -> Unit = {}) : Feat
             ),
             cache = AppConfig.Cache(
                 version = 1,
-                maxAgeSeconds = 3600L
+                maxAgeSeconds = 3600L,
+                mode = CacheMode.NOOP
             ),
             client = AppConfig.Client(
                 url = URI.create(mockUrl).toURL(),
@@ -38,7 +40,6 @@ abstract class ComponentMockTest(body: ComponentMockTest.() -> Unit = {}) : Feat
 
     val mockClient by lazy {
         getHttpClient(
-            appName = "",
             appProfile = AppProfile.CLI,
             config = mockConfig
         ).config {
