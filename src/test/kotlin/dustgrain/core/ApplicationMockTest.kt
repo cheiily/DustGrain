@@ -1,17 +1,13 @@
 package dustgrain.core
 
-import com.github.tomakehurst.wiremock.client.WireMock.aResponse
-import com.github.tomakehurst.wiremock.client.WireMock.equalTo
-import com.github.tomakehurst.wiremock.client.WireMock.get
-import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
-import com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching
+import com.github.tomakehurst.wiremock.client.WireMock.*
 import dustgrain.core.cache.CacheMode
 import dustgrain.core.cache.InMemoryDataHeaderCache
 import dustgrain.core.config.AppProfile
-import io.kotest.core.spec.Spec
 import io.kotest.matchers.equals.shouldBeEqual
+import io.kotest.matchers.types.shouldBeInstanceOf
+import io.ktor.client.request.*
 import io.ktor.client.request.get as clientGet
-import io.ktor.client.request.parameter
 
 class ApplicationMockTest : ApiMockTest({
     feature("Application initialization from config") {
@@ -43,6 +39,7 @@ class ApplicationMockTest : ApiMockTest({
 
             // then
             Application.config shouldBeEqual modifiedConfig
+            Application.dataHeaderCache.shouldBeInstanceOf<InMemoryDataHeaderCache>()
             (Application.dataHeaderCache as InMemoryDataHeaderCache).maxAgeSeconds shouldBeEqual 42L
             wiremockServer.verify(
                 getRequestedFor(urlPathMatching("/.*"))
@@ -50,17 +47,4 @@ class ApplicationMockTest : ApiMockTest({
             )
         }
     }
-}) {
-    override suspend fun afterSpec(spec: Spec) {
-        Application::class.java.getDeclaredField("profile").apply {
-            isAccessible = true
-            set(Application, null)
-        }
-        Application::class.java.getDeclaredField("config").apply {
-            isAccessible = true
-            set(Application, null)
-        }
-
-        super.afterSpec(spec)
-    }
-}
+})
