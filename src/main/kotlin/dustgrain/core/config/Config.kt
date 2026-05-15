@@ -27,7 +27,7 @@ data class AppConfig(
     val appInfo: AppInfo,
     val cache: Cache,
     val client: Client,
-    val cargoQueries: List<GameWiki>
+    val cargoQueries: List<GameWiki>?
 ) {
     //===================app info===================
     data class AppInfo(
