@@ -1,8 +1,7 @@
 plugins {
     kotlin("jvm") version "2.3.20"
     kotlin("plugin.serialization") version "2.3.20"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
-    application
+    id("com.vanniktech.maven.publish") version "0.36.0"
 }
 
 group = "one.cheily"
@@ -31,10 +30,6 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:3.4.1")
     implementation("io.github.oshai:kotlin-logging:8.0.01")
     implementation("net.harawata:appdirs:1.5.0")
-
-    // cli
-    implementation("com.github.ajalt.clikt:clikt:4.2.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 }
 
 tasks.test {
@@ -45,12 +40,42 @@ kotlin {
     jvmToolchain(24)
 }
 
-application {
-    mainClass.set("dustgrain.RunKt")
-}
+mavenPublishing {
+    publishToMavenCentral()
+    signAllPublications()
+    coordinates(
+        groupId = group.toString(),
+        artifactId = "dustgrain-core",
+        version = version.toString()
+    )
 
-//tasks {
-//    shadowJar {
-//        mergeServiceFiles()
-//    }
-//}
+    pom {
+        name = "dustgrain-core"
+        description = "A Kotlin library for fetching and formatting data from Dustloop."
+        inceptionYear = "2024"
+        url = "github.com/cheiily/dustgrain-core"
+
+        licenses {
+            license {
+                name = "MIT License"
+                url = "https://opensource.org/license/mit/"
+            }
+        }
+
+        developers {
+            developer {
+                id = "cheily"
+                name = "cheily"
+                email = "software@cheily.one"
+                organization = "none"
+                organizationUrl = "https://cheily.one"
+            }
+        }
+
+        scm {
+            url = "https://github.com/cheily/dustgrain-core"
+            connection = "scm:git:git://github.com/cheily/dustgrain-core.git"
+            developerConnection = "scm:git:ssh://github.com/cheily/dustgrain-core.git"
+        }
+    }
+}
