@@ -67,7 +67,7 @@ mavenPublishing {
                 id = "cheily"
                 name = "cheily"
                 email = "software@cheily.one"
-                organization = "none"
+                organization = "unaffiliated"
                 organizationUrl = "https://cheily.one"
             }
         }

@@ -53,7 +53,9 @@ class FormattingService(
     }
 
     val formatWikitext = Formatter { (data, head) ->
-        TODO("See issue #14")
+        logger.warn { "wikitext formatting is a TODO feature" }
+        formatPass.format(data to head)
+//        TODO("See issue #14")
     }
 
 

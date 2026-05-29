@@ -5,6 +5,7 @@ import dustgrain.core.domain.DataField
 import dustgrain.core.domain.DataHeader
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.equals.shouldBeEqual
+import io.kotest.matchers.shouldBe
 
 class FormattingServiceMockTest : ApiMockTest({
     val someSingleDataField = DataField(
@@ -134,6 +135,7 @@ class FormattingServiceMockTest : ApiMockTest({
             // then
             shouldThrow<NotImplementedError> {
                 mockFormattingService.formatWikitext.format(data)
+                TODO()
             }
         }
     }
