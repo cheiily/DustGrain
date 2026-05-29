@@ -1,10 +1,12 @@
 package dustgrain.core.config
 
-import dustgrain.core.Application
+import one.cheily.dustgrain.core.Application
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.Order
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.nulls.shouldNotBeNull
+import one.cheily.dustgrain.core.config.AppProfile
+import one.cheily.dustgrain.core.config.getHttpClient
 
 @Order(0)
 class ClientFactoryTest : FeatureSpec({

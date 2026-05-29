@@ -1,9 +1,9 @@
-package dustgrain.core.cache
+package one.cheily.dustgrain.core.cache
 
-import dustgrain.core.Application
-import dustgrain.core.config.AppConfig
-import dustgrain.core.domain.DataHeader
-import dustgrain.core.fetching.DataFetchService
+import one.cheily.dustgrain.core.Application
+import one.cheily.dustgrain.core.config.AppConfig
+import one.cheily.dustgrain.core.domain.DataHeader
+import one.cheily.dustgrain.core.fetching.DataFetchService
 import net.harawata.appdirs.AppDirsFactory
 
 typealias DataHeaderCache = SuspendingKVCache<String, List<DataHeader>>

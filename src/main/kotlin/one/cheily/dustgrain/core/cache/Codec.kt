@@ -1,6 +1,6 @@
-package dustgrain.core.cache
+package one.cheily.dustgrain.core.cache
 
-import dustgrain.core.domain.DataHeader
+import one.cheily.dustgrain.core.domain.DataHeader
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
 

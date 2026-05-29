@@ -3,16 +3,10 @@ package dustgrain.core
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock.*
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration
-import dustgrain.core.config.AppConfig
-import dustgrain.core.config.AppProfile
-import dustgrain.core.config.getHttpClient
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.kotest.core.spec.Spec
-import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.extensions.wiremock.ListenerMode
 import io.kotest.extensions.wiremock.WireMockListener
-import io.ktor.client.plugins.*
-import java.net.URI
 
 abstract class ApiMockTest(body: ApiMockTest.() -> Unit = {}) : ComponentMockTest() {
     val logger = KotlinLogging.logger {}

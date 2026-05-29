@@ -3,6 +3,8 @@ package dustgrain.core.cache
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
+import one.cheily.dustgrain.core.cache.NoopKVCache
+import one.cheily.dustgrain.core.cache.SuspendingCacheEntryProvider
 
 class NoopKVCacheTest : FeatureSpec({
     fun someProvider(): SuspendingCacheEntryProvider<String, Int> {

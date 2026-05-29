@@ -1,4 +1,4 @@
-package dustgrain.core.fetching
+package one.cheily.dustgrain.core.fetching
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body

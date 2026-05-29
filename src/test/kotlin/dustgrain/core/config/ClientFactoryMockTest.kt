@@ -1,7 +1,7 @@
 package dustgrain.core.config
 
 import dustgrain.core.ApiMockTest
-import dustgrain.core.DustloopErrorException
+import one.cheily.dustgrain.core.DustloopErrorException
 import io.kotest.assertions.throwables.shouldThrow
 import io.ktor.client.request.get
 

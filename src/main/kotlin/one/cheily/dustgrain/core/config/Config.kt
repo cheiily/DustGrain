@@ -1,4 +1,4 @@
-package dustgrain.core.config
+package one.cheily.dustgrain.core.config
 
 import com.sksamuel.hoplite.ConfigLoaderBuilder
 import com.sksamuel.hoplite.ConfigResult
@@ -11,7 +11,7 @@ import com.sksamuel.hoplite.StringNode
 import com.sksamuel.hoplite.addResourceSource
 import com.sksamuel.hoplite.decoder.Decoder
 import com.sksamuel.hoplite.fp.Validated
-import dustgrain.core.cache.CacheMode
+import one.cheily.dustgrain.core.cache.CacheMode
 import java.net.URL
 import kotlin.reflect.KType
 

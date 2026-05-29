@@ -1,15 +1,15 @@
-package dustgrain.core
+package one.cheily.dustgrain.core
 
-import dustgrain.core.cache.CacheMode
-import dustgrain.core.cache.DataHeaderCache
-import dustgrain.core.cache.InMemoryDataHeaderCache
-import dustgrain.core.cache.NoopDataHeaderCache
-import dustgrain.core.cache.PersistentDataHeaderCache
-import dustgrain.core.config.AppConfig
-import dustgrain.core.config.AppProfile
-import dustgrain.core.config.getHttpClient
-import dustgrain.core.config.loadConfig
-import dustgrain.core.fetching.DataFetchService
+import one.cheily.dustgrain.core.cache.CacheMode
+import one.cheily.dustgrain.core.cache.DataHeaderCache
+import one.cheily.dustgrain.core.cache.InMemoryDataHeaderCache
+import one.cheily.dustgrain.core.cache.NoopDataHeaderCache
+import one.cheily.dustgrain.core.cache.PersistentDataHeaderCache
+import one.cheily.dustgrain.core.config.AppConfig
+import one.cheily.dustgrain.core.config.AppProfile
+import one.cheily.dustgrain.core.config.getHttpClient
+import one.cheily.dustgrain.core.config.loadConfig
+import one.cheily.dustgrain.core.fetching.DataFetchService
 import io.ktor.client.HttpClient
 
 object Application {

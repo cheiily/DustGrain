@@ -1,6 +1,6 @@
-package dustgrain.core.domain
+package one.cheily.dustgrain.core.domain
 
-import dustgrain.core.formatting.FormatterRef
+import one.cheily.dustgrain.core.formatting.FormatterRef
 import kotlinx.serialization.Serializable
 
 @Serializable

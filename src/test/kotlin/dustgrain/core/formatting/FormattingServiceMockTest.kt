@@ -1,11 +1,11 @@
 package dustgrain.core.formatting
 
 import dustgrain.core.ApiMockTest
-import dustgrain.core.domain.DataField
-import dustgrain.core.domain.DataHeader
+import one.cheily.dustgrain.core.domain.DataField
+import one.cheily.dustgrain.core.domain.DataHeader
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.matchers.equals.shouldBeEqual
-import io.kotest.matchers.shouldBe
+import one.cheily.dustgrain.core.formatting.FormatterRef
 
 class FormattingServiceMockTest : ApiMockTest({
     val someSingleDataField = DataField(

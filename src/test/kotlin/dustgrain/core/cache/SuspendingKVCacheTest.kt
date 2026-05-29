@@ -2,6 +2,8 @@ package dustgrain.core.cache
 
 import io.kotest.core.spec.style.FeatureSpec
 import io.kotest.matchers.shouldBe
+import one.cheily.dustgrain.core.cache.SuspendingCacheEntryProvider
+import one.cheily.dustgrain.core.cache.SuspendingKVCache
 
 class SuspendingKVCacheTest : FeatureSpec({
 
