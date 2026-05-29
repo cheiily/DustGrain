@@ -1,8 +1,0 @@
-package dustgrain.cli.commands.list
-
-import com.github.ajalt.clikt.core.NoOpCliktCommand
-
-/**
- * Command responsible for handling list requests.
- */
-class List : NoOpCliktCommand("Grouping command for plain-listing data from the wiki. See subcommands for details.")

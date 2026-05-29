@@ -1,0 +1,25 @@
+app_info:
+  name: "DustGrain"
+  version: "3.0.0"
+  author: "cheily"
+
+cache:
+  version: 1
+  max_age_seconds: 86400
+  mode: PERSISTENT
+
+client:
+  url: ""
+  timeout: 10000
+  user_agent: ""
+
+cargo_queries:
+  - gbvsr:
+    - MoveData_GBVSR:
+      - input
+      - name
+      - note : parseWikitext
+
+    - gbvsrCharacters:
+      - name
+      - health

@@ -1,0 +1,56 @@
+{
+  "cargoquery": [
+    {
+      "title": {
+        "chara": "Djeeta",
+        "name": "Air Throw",
+        "input": "j.LU",
+        "damage": "2500",
+        "guard": "Throw",
+        "startup": "5",
+        "active": "5",
+        "recovery": "Until L+6",
+        "onBlock": null,
+        "onHit": "HKD ≈&lt;span style=&quot;color: \n#4475ff&quot; &gt;&#039;&#039;&#039;+40&#039;&#039;&#039;&lt;/span&gt;",
+        "onCH": null,
+        "meter": null,
+        "level": "0, 4",
+        "invuln": null,
+        "cooldown": null,
+        "cls": null,
+        "images": "GBVSR_Djeeta_AirThrow.png",
+        "caption": "&amp;#32;",
+        "hitboxes": "GBVSR_Djeeta_AirThrow_Hitbox.png",
+        "hitboxCaption": "&amp;#32;",
+        "type": "other",
+        "notes": null
+      }
+    },
+    {
+      "title": {
+        "chara": "Djeeta",
+        "name": "Ground Throw",
+        "input": "LU",
+        "damage": "2500",
+        "guard": "Throw",
+        "startup": "4",
+        "active": "3",
+        "recovery": "26",
+        "onBlock": null,
+        "onHit": "HKD &lt;span style=&quot;color: \n#4475ff&quot; &gt;&#039;&#039;&#039;+44&#039;&#039;&#039;&lt;/span&gt;/HKD &lt;span style=&quot;color: \n#4475ff&quot; &gt;&#039;&#039;&#039;+48&#039;&#039;&#039;&lt;/span&gt;",
+        "onCH": null,
+        "meter": null,
+        "level": "0, 4",
+        "invuln": null,
+        "cooldown": null,
+        "cls": null,
+        "images": "GBVSR_Djeeta_Throw.png\\GBVSR_Djeeta_BackThrow.png",
+        "caption": "Forward throw\\Back throw",
+        "hitboxes": "GBVSR_Djeeta_Throw_Hitbox.png",
+        "hitboxCaption": "&amp;#32;",
+        "type": "other",
+        "notes": "Advantages refer to Front Throw/Back Throw respectively"
+      }
+    }
+  ]
+}
