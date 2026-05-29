@@ -1,4 +1,4 @@
-package dustgrain.core.cache
+package one.cheily.dustgrain.core.cache
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -22,10 +22,14 @@ interface SuspendingKVCache<K, V> {
         set(key, it)
         it
     }
-    fun loadBlocking(key: K): V? = runBlocking { provider.get(key)?.let {
-        set(key, it)
-        it
-    }}
+
+    fun loadBlocking(key: K): V? = runBlocking {
+        provider.get(key)?.let {
+            set(key, it)
+            it
+        }
+    }
+
     suspend fun loadAll(vararg keys: K) = keys.forEach { load(it) }
     fun loadAllBlocking(vararg keys: K) = runBlocking {
         keys.map { async { load(it) } }

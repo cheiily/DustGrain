@@ -1,6 +1,6 @@
-package dustgrain.core
+package one.cheily.dustgrain.core
 
-import dustgrain.core.fetching.DustloopErrorResponse
+import one.cheily.dustgrain.core.fetching.DustloopErrorResponse
 import io.ktor.client.plugins.ResponseException
 import io.ktor.client.statement.HttpResponse
 

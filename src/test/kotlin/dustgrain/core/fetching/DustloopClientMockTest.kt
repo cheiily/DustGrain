@@ -11,6 +11,9 @@ import io.kotest.matchers.maps.shouldContainKey
 import io.kotest.matchers.maps.shouldNotBeEmpty
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
+import one.cheily.dustgrain.core.fetching.DustloopClient
+import one.cheily.dustgrain.core.fetching.TableDataRequest
+import one.cheily.dustgrain.core.fetching.TableHeaderResponse
 
 class DustloopClientMockTest : ApiMockTest({
     val dustloopClient by lazy { DustloopClient(mockClient) }

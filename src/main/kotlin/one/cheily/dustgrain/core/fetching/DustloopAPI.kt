@@ -1,4 +1,4 @@
-package dustgrain.core.fetching
+package one.cheily.dustgrain.core.fetching
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

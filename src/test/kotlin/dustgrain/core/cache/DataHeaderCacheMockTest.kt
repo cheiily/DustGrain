@@ -2,6 +2,9 @@ package dustgrain.core.cache
 
 import dustgrain.core.ComponentMockTest
 import io.kotest.matchers.nulls.shouldNotBeNull
+import one.cheily.dustgrain.core.cache.InMemoryDataHeaderCache
+import one.cheily.dustgrain.core.cache.NoopDataHeaderCache
+import one.cheily.dustgrain.core.cache.PersistentDataHeaderCache
 
 class DataHeaderCacheMockTest : ComponentMockTest({
     feature("InMemoryDataHeaderCache constructor") {

@@ -1,8 +1,8 @@
-package dustgrain.core.config
+package one.cheily.dustgrain.core.config
 
-import dustgrain.core.Application
-import dustgrain.core.DustloopErrorException
-import dustgrain.core.fetching.DustloopErrorResponse
+import one.cheily.dustgrain.core.Application
+import one.cheily.dustgrain.core.DustloopErrorException
+import one.cheily.dustgrain.core.fetching.DustloopErrorResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*

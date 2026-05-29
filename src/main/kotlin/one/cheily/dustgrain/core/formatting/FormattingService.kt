@@ -1,9 +1,9 @@
-package dustgrain.core.formatting
+package one.cheily.dustgrain.core.formatting
 
-import dustgrain.core.domain.DataField
-import dustgrain.core.domain.DataGrain
-import dustgrain.core.domain.DataHeader
-import dustgrain.core.fetching.DataFetchService
+import one.cheily.dustgrain.core.domain.DataField
+import one.cheily.dustgrain.core.domain.DataGrain
+import one.cheily.dustgrain.core.domain.DataHeader
+import one.cheily.dustgrain.core.fetching.DataFetchService
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll

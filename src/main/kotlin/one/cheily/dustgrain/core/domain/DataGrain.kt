@@ -1,4 +1,4 @@
-package dustgrain.core.domain
+package one.cheily.dustgrain.core.domain
 
 data class DataGrain(
     val name: String,

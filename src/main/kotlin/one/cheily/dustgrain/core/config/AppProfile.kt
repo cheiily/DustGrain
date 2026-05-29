@@ -1,4 +1,4 @@
-package dustgrain.core.config
+package one.cheily.dustgrain.core.config
 
 enum class AppProfile {
     CLI,

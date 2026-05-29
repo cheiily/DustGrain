@@ -1,12 +1,13 @@
 package dustgrain.core
 
 import com.github.tomakehurst.wiremock.client.WireMock.*
-import dustgrain.core.cache.CacheMode
-import dustgrain.core.cache.InMemoryDataHeaderCache
-import dustgrain.core.config.AppProfile
+import one.cheily.dustgrain.core.cache.CacheMode
+import one.cheily.dustgrain.core.cache.InMemoryDataHeaderCache
+import one.cheily.dustgrain.core.config.AppProfile
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.types.shouldBeInstanceOf
 import io.ktor.client.request.*
+import one.cheily.dustgrain.core.Application
 import io.ktor.client.request.get as clientGet
 
 class ApplicationMockTest : ApiMockTest({

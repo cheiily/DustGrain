@@ -1,4 +1,4 @@
-package dustgrain.core.formatting
+package one.cheily.dustgrain.core.formatting
 
 import kotlinx.serialization.Serializable
 

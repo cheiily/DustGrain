@@ -1,11 +1,12 @@
 package dustgrain.core.fetching
 
 import dustgrain.core.ApiMockTest
-import dustgrain.core.formatting.FormatterRef
+import one.cheily.dustgrain.core.formatting.FormatterRef
 import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.equals.shouldBeEqual
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
+import one.cheily.dustgrain.core.fetching.TableDataRequest
 
 class DataFetchServiceTest : ApiMockTest({
     feature("DataFetchService#getTableHeaders") {

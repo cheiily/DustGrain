@@ -1,15 +1,15 @@
 package dustgrain.core
 
-import dustgrain.core.config.AppConfig
-import dustgrain.core.config.AppProfile
-import dustgrain.core.config.getHttpClient
-import dustgrain.core.fetching.DataFetchService
-import dustgrain.core.fetching.DustloopClient
-import dustgrain.core.formatting.FormattingService
+import one.cheily.dustgrain.core.config.AppConfig
+import one.cheily.dustgrain.core.config.AppProfile
+import one.cheily.dustgrain.core.config.getHttpClient
+import one.cheily.dustgrain.core.fetching.DataFetchService
+import one.cheily.dustgrain.core.fetching.DustloopClient
+import one.cheily.dustgrain.core.formatting.FormattingService
 import io.kotest.core.spec.style.FeatureSpec
 import io.ktor.client.plugins.defaultRequest
 import java.net.URI
-import dustgrain.core.cache.CacheMode
+import one.cheily.dustgrain.core.cache.CacheMode
 
 abstract class ComponentMockTest(body: ComponentMockTest.() -> Unit = {}) : FeatureSpec({}) {
     init {

@@ -6,6 +6,9 @@ import io.kotest.engine.concurrency.TestExecutionMode
 import io.kotest.engine.spec.tempdir
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
+import one.cheily.dustgrain.core.cache.PersistentKVCache
+import one.cheily.dustgrain.core.cache.StringCodec
+import one.cheily.dustgrain.core.cache.SuspendingCacheEntryProvider
 import java.io.File
 
 class PersistentKVCacheTest : FeatureSpec({
