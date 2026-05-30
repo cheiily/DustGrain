@@ -17,6 +17,7 @@ import kotlin.reflect.KType
 
 private const val CONFIG_PATH = "/application.yml"
 
+@JvmOverloads
 fun loadConfig(configPath: String = CONFIG_PATH) = ConfigLoaderBuilder.default()
     .addResourceSource(configPath)
     .addDecoder(AppConfig.TableFieldFormatDecoder())

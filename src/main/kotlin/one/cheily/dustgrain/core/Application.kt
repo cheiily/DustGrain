@@ -20,6 +20,7 @@ object Application {
     lateinit var dataFetchService: DataFetchService private set
     lateinit var dataHeaderCache: DataHeaderCache private set
 
+    @JvmOverloads
     fun initialize(profile: AppProfile, appConfig: AppConfig = loadConfig()) {
         this.profile = profile
         this.config = appConfig

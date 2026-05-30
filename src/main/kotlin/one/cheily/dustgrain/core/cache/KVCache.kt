@@ -23,12 +23,7 @@ interface SuspendingKVCache<K, V> {
         it
     }
 
-    fun loadBlocking(key: K): V? = runBlocking {
-        provider.get(key)?.let {
-            set(key, it)
-            it
-        }
-    }
+    fun loadBlocking(key: K): V? = runBlocking { load(key) }
 
     suspend fun loadAll(vararg keys: K) = keys.forEach { load(it) }
     fun loadAllBlocking(vararg keys: K) = runBlocking {
