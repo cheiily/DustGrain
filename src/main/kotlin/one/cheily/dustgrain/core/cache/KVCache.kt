@@ -1,4 +1,4 @@
-package one.cheily.dustgrain.core.cache
+package dustgrain.core.cache
 
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
